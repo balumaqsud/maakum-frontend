@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#F7F2E8">
+  <title>A little hope — Ma'akum</title>
+  <script>try{if(localStorage.getItem('maakum.lang')==='ar'){document.documentElement.lang='ar';document.documentElement.dir='rtl'}}catch(e){}</script>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body data-page="hope" class="hope">
+  <a class="skip" href="#main" data-i18n="skip">Skip to content</a>
+
+  <div class="wrap">
+    <header class="site-header">
+      <a class="brand" href="index.html" aria-label="Ma'akum"><span class="brand-ar" lang="ar">معكم</span><span class="brand-en">Ma'akum</span></a>
+      <nav class="nav" aria-label="Main">
+        <a href="index.html" data-i18n="hope_close">Close</a>
+        <button type="button" class="lang-toggle" id="langToggle" lang="ar">العربية</button>
+      </nav>
+    </header>
+  </div>
+
+  <main id="main" class="stage">
+    <div class="stage-inner" id="stage" aria-live="polite"></div>
+  </main>
+
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
