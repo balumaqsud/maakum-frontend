@@ -1,1 +1,18 @@
 @import "tailwindcss";
+
+html[lang="ar"] .locale-en {
+  display: none;
+}
+
+html:not([lang="ar"]) .locale-ar {
+  display: none;
+}
+
+html[lang="ar"] body {
+  font-family: "Geeza Pro", "Noto Naskh Arabic", "Traditional Arabic", Tahoma, sans-serif;
+}
+
+html[lang="ar"] :is(h1, h2, h3) {
+  letter-spacing: 0;
+  text-transform: none;
+}
