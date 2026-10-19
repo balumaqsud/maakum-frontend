@@ -49,7 +49,7 @@ export function validateCompose(
 export function composeError(status: number | "unavailable", fields: Record<string, string>): ComposeError {
   if (fields.countryCode) return "country";
   if (fields.displayName) return "name";
-  if (fields.text) return "long";
+  if (fields.text || status === 413) return "long";
   if (status === 400) return "failed";
   if (status === 403) return "blocked";
   if (status === 404) return "missing";
