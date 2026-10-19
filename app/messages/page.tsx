@@ -2,11 +2,13 @@ import { Suspense } from "react";
 import type { Metadata } from "next";
 import { ClearFilters, MessageFilters, RememberRead } from "@/app/messages/filters";
 import { EmptyState } from "@/components/shared/empty-state";
+import { ErrorState } from "@/components/shared/error-state";
 import { LocaleText } from "@/components/shared/locale-text";
 import { SectionHeading } from "@/components/shared/section-heading";
 import { Button } from "@/components/ui/button";
 import { MessageCard } from "@/features/messages/components/message-card";
-import { listHref, listMessages, PAGE_SIZE, parseListQuery, type ListParams } from "@/features/messages/list";
+import { listHref, PAGE_SIZE, parseListQuery, type ListParams } from "@/features/messages/list";
+import { getMessageFeed } from "@/lib/api";
 
 export const metadata: Metadata = {
   title: "Messages",
@@ -29,13 +31,28 @@ export default function MessagesPage({ searchParams }: { searchParams: Promise<L
 
 async function MessageBrowser({ searchParams }: { searchParams: Promise<ListParams> }) {
   const query = parseListQuery(await searchParams);
-  const { items, total } = listMessages(query);
+  const feed = await getMessageFeed({ limit: PAGE_SIZE, cursor: query.cursor });
+
+  if (!feed) {
+    return (
+      <div className="mt-8">
+        <ErrorState
+          title={<LocaleText k="errorTitle" />}
+          action={
+            <Button href="/messages" variant="text">
+              <LocaleText k="backMessages" />
+            </Button>
+          }
+        />
+      </div>
+    );
+  }
 
   return (
     <>
       <RememberRead read={query.read} explicit={query.explicitRead} />
       <MessageFilters query={query} />
-      {items.length === 0 ? (
+      {feed.items.length === 0 ? (
         <div className="mt-8">
           <EmptyState
             title={<LocaleText k="noMatchesTitle" />}
@@ -45,7 +62,7 @@ async function MessageBrowser({ searchParams }: { searchParams: Promise<ListPara
         </div>
       ) : (
         <ul className="mt-4 divide-y divide-line">
-          {items.map((message) => (
+          {feed.items.map((message) => (
             <li key={message.id}>
               <MessageCard
                 message={message}
@@ -58,9 +75,9 @@ async function MessageBrowser({ searchParams }: { searchParams: Promise<ListPara
           ))}
         </ul>
       )}
-      {items.length < total ? (
+      {feed.nextCursor ? (
         <div className="mt-8">
-          <Button href={listHref({ ...query, shown: query.shown + PAGE_SIZE })} variant="secondary">
+          <Button href={listHref({ read: query.read, cursor: feed.nextCursor })} variant="secondary">
             <LocaleText k="showMore" />
           </Button>
         </div>

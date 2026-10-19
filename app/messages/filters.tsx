@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { LocaleText } from "@/components/shared/locale-text";
-import { listHref, type ListQuery, type ReadMode, type ReplyFilter } from "@/features/messages/list";
+import { listHref, type ListQuery, type ReadMode } from "@/features/messages/list";
 import { STORAGE_KEYS } from "@/lib/constants";
 import type { ChromeKey } from "@/lib/i18n";
 
@@ -29,11 +29,6 @@ const reads: { id: ReadMode; key: ChromeKey }[] = [
   { id: "en", key: "readEnglish" },
 ];
 
-const replyFilters: { id: ReplyFilter; key: ChromeKey }[] = [
-  { id: "all", key: "filterAll" },
-  { id: "with", key: "filterWithReplies" },
-];
-
 export function MessageFilters({ query }: { query: ListQuery }) {
   return (
     <div className="mt-8 flex flex-col gap-4">
@@ -49,23 +44,6 @@ export function MessageFilters({ query }: { query: ListQuery }) {
               aria-current={query.read === item.id ? "true" : undefined}
               className={pill(query.read === item.id)}
               onClick={() => saveRead(item.id)}
-            >
-              <LocaleText k={item.key} />
-            </Link>
-          ))}
-        </div>
-      </div>
-      <div>
-        <p id="reply-label" className="mb-2 font-sans text-sm font-semibold text-ink-soft">
-          <LocaleText k="repliesTitle" />
-        </p>
-        <div role="group" aria-labelledby="reply-label" className="flex flex-wrap gap-2">
-          {replyFilters.map((item) => (
-            <Link
-              key={item.id}
-              href={listHref({ ...query, replies: item.id })}
-              aria-current={query.replies === item.id ? "true" : undefined}
-              className={pill(query.replies === item.id)}
             >
               <LocaleText k={item.key} />
             </Link>

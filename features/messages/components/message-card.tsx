@@ -1,8 +1,8 @@
 import Link from "next/link";
 import { LocaleText } from "@/components/shared/locale-text";
 import { Button } from "@/components/ui/button";
-import { countryName, langs } from "@/features/messages/data";
-import { countReplies, type ReadMode } from "@/features/messages/list";
+import { countryName, langs, languageName } from "@/features/messages/data";
+import type { ReadMode } from "@/features/messages/list";
 import type { Message } from "@/features/messages/types";
 import { relativeTime, replyCount, translate } from "@/lib/i18n";
 
@@ -39,8 +39,9 @@ export function MessageCard({
   const quote = selected || original;
   const quoteLang = unavailable || reading === "orig" ? message.orig : reading;
   const time = relativeTime(message.ago);
-  const language = langs[message.orig];
-  const replies = replyCount(countReplies(message.replies));
+  const place = message.country ? countryName(message.country, "en") : "";
+  const language = message.orig ? languageName(message.orig) : null;
+  const replies = replyCount(message.replyCount);
   const readingLabel =
     reading === "ar" ? langs.ar : reading === "en" ? langs.en : { en: translate("en", "readOriginal"), ar: translate("ar", "readOriginal") };
   const enTranslation = reading === "orig" && message.orig !== "en" ? message.text.en : undefined;
@@ -56,12 +57,16 @@ export function MessageCard({
         ) : (
           <span className="font-semibold">{name}</span>
         )}
-        <span aria-hidden className="text-ink-soft">
-          ·
-        </span>
-        <span className="text-ink-soft">
-          <Both en={countryName(message.country, "en")} ar={countryName(message.country, "ar")} />
-        </span>
+        {place ? (
+          <>
+            <span aria-hidden className="text-ink-soft">
+              ·
+            </span>
+            <span className="text-ink-soft">
+              <Both en={place} ar={countryName(message.country, "ar")} />
+            </span>
+          </>
+        ) : null}
         <span aria-hidden className="text-ink-soft">
           ·
         </span>
@@ -71,12 +76,16 @@ export function MessageCard({
         <span aria-hidden className="text-ink-soft">
           ·
         </span>
-        <span className="text-ink-soft">
-          <Both en={language.en} ar={language.ar} />
-        </span>
-        <span aria-hidden className="text-ink-soft">
-          ·
-        </span>
+        {language ? (
+          <>
+            <span className="text-ink-soft">
+              <Both en={language.en} ar={language.ar} />
+            </span>
+            <span aria-hidden className="text-ink-soft">
+              ·
+            </span>
+          </>
+        ) : null}
         <span className="text-ink-soft">
           <Both en={replies.en} ar={replies.ar} />
         </span>

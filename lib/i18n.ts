@@ -65,7 +65,7 @@ const chrome = {
       "Ma'akum is a quiet place for kind words written for people in Gaza. There is no account.",
     privacyTitle: "Privacy",
     privacyBody:
-      "The messages on this site are examples, not notes from visitors. Sending a message or a reply here does not upload it. Language, reading language, reactions, and theme stay in this browser under maakum.lang, maakum.read, maakum.react, and maakum.theme. There is no account and no saved copy of what you type.",
+      "Published messages on this site come from the server. The write form only checks that the field is not empty, and it does not send what you type. Language and reading language stay in this browser under maakum.lang and maakum.read. There is no account.",
     notFoundTitle: "We couldn’t find that page",
     notFoundBody: "You can return home and read messages from there.",
     backHome: "Back home",
@@ -145,7 +145,7 @@ const chrome = {
     aboutLead: "معكم مكان هادئ لكلمات طيبة كُتبت لأهل غزة. لا يوجد حساب.",
     privacyTitle: "الخصوصية",
     privacyBody:
-      "الرسائل في هذا الموقع أمثلة، وليست كتابات من الزوار. إرسال رسالة أو رد هنا لا يرفعه إلى أي خادم. تبقى اللغة ولغة القراءة والتفاعلات والمظهر في هذا المتصفح تحت المفاتيح maakum.lang و maakum.read و maakum.react و maakum.theme. لا يوجد حساب، ولا تُحفظ نسخة مما تكتبه.",
+      "الرسائل المنشورة في هذا الموقع تأتي من الخادم. نموذج الكتابة يتحقق فقط من أن الحقل غير فارغ، ولا يرسل ما تكتبه. تبقى اللغة ولغة القراءة في هذا المتصفح تحت المفاتيح maakum.lang و maakum.read. لا يوجد حساب.",
     notFoundTitle: "تعذّر العثور على هذه الصفحة",
     notFoundBody: "يمكنك العودة إلى البداية وقراءة الرسائل من هناك.",
     backHome: "العودة إلى البداية",
