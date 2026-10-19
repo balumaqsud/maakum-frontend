@@ -4,10 +4,10 @@ export type Reply = {
   id: string;
   name: string | null;
   country: string;
-  orig: MessageLang;
+  orig: string;
   ago: number;
-  to?: string;
-  text: Partial<Record<MessageLang, string>>;
+  reactionCount: number;
+  text: Partial<Record<string, string>>;
   children?: Reply[];
 };
 
@@ -15,10 +15,11 @@ export type Message = {
   id: string;
   name: string | null;
   country: string;
-  orig: MessageLang;
+  orig: string;
   ago: number;
-  reactions: number;
-  text: Partial<Record<MessageLang, string>>;
+  replyCount: number;
+  reactionCount: number;
+  text: Partial<Record<string, string>>;
   replies: Reply[];
 };
 

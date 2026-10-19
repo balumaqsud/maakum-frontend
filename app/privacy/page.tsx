@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
 import { LocaleText } from "@/components/shared/locale-text";
 import { SectionHeading } from "@/components/shared/section-heading";
+import { copy, excerpt, pageMeta } from "@/lib/site";
 
-export const metadata: Metadata = {
-  title: "Privacy",
-};
+export const metadata: Metadata = pageMeta("/privacy", "Privacy", excerpt(copy("privacyBody")));
 
 export default function PrivacyPage() {
   return (

@@ -1,10 +1,26 @@
+import { Suspense } from "react";
+import type { Metadata } from "next";
 import { EmptyState } from "@/components/shared/empty-state";
 import { LocaleText } from "@/components/shared/locale-text";
 import { Ornament } from "@/components/shared/ornament";
 import { SectionHeading } from "@/components/shared/section-heading";
 import { Button } from "@/components/ui/button";
 import { MessageCard } from "@/features/messages/components/message-card";
-import { getFeaturedMessages, getHomeStats } from "@/features/messages/data";
+import { getHomeStats } from "@/features/messages/data";
+import { getFeaturedMessages } from "@/lib/api";
+import { copy, siteOrigin } from "@/lib/site";
+
+export const metadata: Metadata = {
+  alternates: { canonical: "/" },
+};
+
+const website = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: "Ma'akum",
+  description: copy("homeLead"),
+  url: siteOrigin(),
+};
 
 function HomeActions() {
   return (
@@ -19,12 +35,34 @@ function HomeActions() {
   );
 }
 
+async function FeaturedMessages() {
+  const featured = await getFeaturedMessages();
+
+  if (featured.length === 0) {
+    return (
+      <div className="mt-8">
+        <EmptyState title={<LocaleText k="featuredEmpty" />} />
+      </div>
+    );
+  }
+
+  return (
+    <ul className="mt-4 divide-y divide-line">
+      {featured.map((message) => (
+        <li key={message.id}>
+          <MessageCard message={message} href={`/messages/${message.id}`} />
+        </li>
+      ))}
+    </ul>
+  );
+}
+
 export default function Home() {
-  const featured = getFeaturedMessages();
   const stats = getHomeStats();
 
   return (
     <article className="flex flex-col gap-16">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(website) }} />
       <header className="max-w-[40rem]">
         <SectionHeading
           as="h1"
@@ -44,19 +82,9 @@ export default function Home() {
 
       <section>
         <SectionHeading as="h2" title={<LocaleText k="featuredTitle" />} />
-        {featured.length === 0 ? (
-          <div className="mt-8">
-            <EmptyState title={<LocaleText k="featuredEmpty" />} />
-          </div>
-        ) : (
-          <ul className="mt-4 divide-y divide-line">
-            {featured.map((message) => (
-              <li key={message.id}>
-                <MessageCard message={message} href={`/messages/${message.id}`} />
-              </li>
-            ))}
-          </ul>
-        )}
+        <Suspense fallback={<p className="mt-8 text-ink-soft"><LocaleText k="loading" /></p>}>
+          <FeaturedMessages />
+        </Suspense>
       </section>
 
       <section className="relative max-w-[44rem] sm:pe-40">

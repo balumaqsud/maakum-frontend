@@ -28,7 +28,7 @@ export function Button({
 }) {
   const classes = [
     "inline-flex min-h-11 items-center justify-center rounded-full px-7 font-sans text-base font-semibold",
-    "motion-safe:transition motion-safe:active:scale-[0.98]",
+    "motion-safe:transition motion-safe:active:scale-[0.98] disabled:opacity-60",
     variants[variant],
     className,
   ].join(" ");

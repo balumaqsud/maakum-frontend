@@ -5,7 +5,10 @@ import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader, SiteHeaderFallback } from "@/components/layout/site-header";
 import { Container } from "@/components/ui/container";
 import { langBootScript } from "@/lib/constants";
+import { siteOrigin } from "@/lib/site";
 import "./globals.css";
+
+const description = "Kind words from people all over the world, written for people in Gaza.";
 
 const sourceSerif = Source_Serif_4({
   subsets: ["latin"],
@@ -36,11 +39,26 @@ const notoSansArabic = Noto_Sans_Arabic({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(siteOrigin()),
   title: {
     default: "Ma'akum — You are not alone",
     template: "%s — Ma'akum",
   },
-  description: "Kind words from people all over the world, written for people in Gaza.",
+  description,
+  openGraph: {
+    title: "Ma'akum — You are not alone",
+    description,
+    siteName: "Ma'akum",
+    type: "website",
+    locale: "en",
+    images: [{ url: "/opengraph-image", width: 1200, height: 630, alt: "Ma'akum" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Ma'akum — You are not alone",
+    description,
+    images: ["/opengraph-image"],
+  },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

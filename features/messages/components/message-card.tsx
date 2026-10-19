@@ -1,8 +1,10 @@
 import Link from "next/link";
 import { LocaleText } from "@/components/shared/locale-text";
-import { countryName, langs } from "@/features/messages/data";
+import { Button } from "@/components/ui/button";
+import { countryName, langs, languageName } from "@/features/messages/data";
+import type { ReadMode } from "@/features/messages/list";
 import type { Message } from "@/features/messages/types";
-import { relativeTime, translate } from "@/lib/i18n";
+import { relativeTime, replyCount, translate } from "@/lib/i18n";
 
 function Both({ en, ar }: { en: string; ar: string }) {
   return (
@@ -15,30 +17,61 @@ function Both({ en, ar }: { en: string; ar: string }) {
   );
 }
 
-export function MessageCard({ message, hero = false, href }: { message: Message; hero?: boolean; href?: string }) {
+export function MessageCard({
+  message,
+  hero = false,
+  href,
+  reading = "orig",
+  showReading = false,
+  conversation = false,
+}: {
+  message: Message;
+  hero?: boolean;
+  href?: string;
+  reading?: ReadMode;
+  showReading?: boolean;
+  conversation?: boolean;
+}) {
   const name = message.name ?? <LocaleText k="anonymous" />;
-  const quote = message.text[message.orig] ?? "";
+  const original = message.text[message.orig] ?? "";
+  const selected = reading === "orig" ? original : message.text[reading];
+  const unavailable = reading !== "orig" && !selected;
+  const quote = selected || original;
+  const quoteLang = unavailable || reading === "orig" ? message.orig : reading;
   const time = relativeTime(message.ago);
-  const language = langs[message.orig];
-  const enTranslation = message.orig === "en" ? undefined : message.text.en;
-  const arTranslation = message.orig === "ar" ? undefined : message.text.ar;
+  const place = message.country ? countryName(message.country, "en") : "";
+  const language = message.orig ? languageName(message.orig) : null;
+  const replies = replyCount(message.replyCount);
+  const readingLabel =
+    reading === "ar" ? langs.ar : reading === "en" ? langs.en : { en: translate("en", "readOriginal"), ar: translate("ar", "readOriginal") };
+  const enTranslation = reading === "orig" && message.orig !== "en" ? message.text.en : undefined;
+  const arTranslation = reading === "orig" && message.orig !== "ar" ? message.text.ar : undefined;
+
+  const nameClass = "font-semibold";
+  const identity = href ? (
+    <Link href={href} className={`${nameClass} underline decoration-1 underline-offset-4`}>
+      {name}
+    </Link>
+  ) : hero ? (
+    <h1 className={`${nameClass} font-sans text-[0.92rem]`}>{name}</h1>
+  ) : (
+    <span className={nameClass}>{name}</span>
+  );
 
   return (
     <article className="min-w-0 py-8">
-      <p className="mb-3 flex flex-wrap items-center gap-x-2 text-[0.92rem] text-ink">
-        {href ? (
-          <Link href={href} className="font-semibold underline decoration-1 underline-offset-4">
-            {name}
-          </Link>
-        ) : (
-          <span className="font-semibold">{name}</span>
-        )}
-        <span aria-hidden className="text-ink-soft">
-          ·
-        </span>
-        <span className="text-ink-soft">
-          <Both en={countryName(message.country, "en")} ar={countryName(message.country, "ar")} />
-        </span>
+      <div className="mb-3 flex flex-wrap items-center gap-x-2 text-[0.92rem] text-ink">
+        {identity}
+        {place ? (
+          <>
+            <span aria-hidden className="text-ink-soft">
+              ·
+            </span>
+            <span className="text-ink-soft">
+              <Both en={place} ar={countryName(message.country, "ar")} />
+            </span>
+          </>
+        ) : null}
         <span aria-hidden className="text-ink-soft">
           ·
         </span>
@@ -48,18 +81,38 @@ export function MessageCard({ message, hero = false, href }: { message: Message;
         <span aria-hidden className="text-ink-soft">
           ·
         </span>
+        {language ? (
+          <>
+            <span className="text-ink-soft">
+              <Both en={language.en} ar={language.ar} />
+            </span>
+            <span aria-hidden className="text-ink-soft">
+              ·
+            </span>
+          </>
+        ) : null}
         <span className="text-ink-soft">
-          <Both en={language.en} ar={language.ar} />
+          <Both en={replies.en} ar={replies.ar} />
         </span>
-      </p>
+      </div>
+      {unavailable ? (
+        <p className="mb-3 text-sm text-ink-soft">
+          <LocaleText k="translationMissing" />
+        </p>
+      ) : null}
+      {showReading ? (
+        <p className="mb-2 font-sans text-[0.78rem] font-semibold text-olive">
+          <Both en={unavailable ? translate("en", "readOriginal") : readingLabel.en} ar={unavailable ? translate("ar", "readOriginal") : readingLabel.ar} />
+        </p>
+      ) : null}
       <p
         className={
           hero
             ? "quote text-[clamp(1.5rem,6.2vw,2.15rem)] leading-normal"
             : "quote text-[1.25rem] leading-relaxed"
         }
-        lang={message.orig}
-        dir={message.orig === "ar" ? "rtl" : "ltr"}
+        lang={quoteLang}
+        dir={quoteLang === "ar" ? "rtl" : "ltr"}
       >
         {quote}
       </p>
@@ -78,6 +131,11 @@ export function MessageCard({ message, hero = false, href }: { message: Message;
           </span>
           {arTranslation}
         </p>
+      ) : null}
+      {conversation && href ? (
+        <Button href={href} variant="text">
+          <LocaleText k="openConversation" />
+        </Button>
       ) : null}
     </article>
   );
