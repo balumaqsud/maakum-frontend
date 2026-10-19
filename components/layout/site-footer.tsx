@@ -12,11 +12,14 @@ export function SiteFooter() {
         <span id="footer-nav-label" className="sr-only">
           <LocaleText k="navLabel" />
         </span>
-        <nav aria-labelledby="footer-nav-label" className="flex flex-wrap gap-4">
-          <Link href="/about" className="underline decoration-1 underline-offset-4">
+        <nav aria-labelledby="footer-nav-label" className="flex flex-wrap gap-x-4">
+          <Link href="/messages" className="inline-flex min-h-11 items-center underline decoration-1 underline-offset-4">
+            <LocaleText k="messagesTitle" />
+          </Link>
+          <Link href="/about" className="inline-flex min-h-11 items-center underline decoration-1 underline-offset-4">
             <LocaleText k="about" />
           </Link>
-          <Link href="/privacy" className="underline decoration-1 underline-offset-4">
+          <Link href="/privacy" className="inline-flex min-h-11 items-center underline decoration-1 underline-offset-4">
             <LocaleText k="privacy" />
           </Link>
         </nav>

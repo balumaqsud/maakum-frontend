@@ -9,6 +9,7 @@ import { ReplyThread } from "@/features/messages/components/reply-thread";
 import { reachedIds } from "@/features/messages/actions";
 import { listHref, parseListQuery, type ListParams } from "@/features/messages/list";
 import { getMessageThread, isMessageId } from "@/lib/api";
+import { excerpt, pageMeta } from "@/lib/site";
 
 type MessagePageProps = {
   params: Promise<{ id: string }>;
@@ -17,24 +18,14 @@ type MessagePageProps = {
 
 export const instant = false;
 
-function excerpt(text: string): string {
-  const flat = text.replace(/\s+/g, " ").trim();
-  const chars = [...flat];
-  if (chars.length <= 160) return flat;
-  return `${chars.slice(0, 157).join("")}…`;
-}
-
 export async function generateMetadata({ params }: MessagePageProps): Promise<Metadata> {
   const { id } = await params;
   if (!isMessageId(id)) notFound();
   const thread = await getMessageThread(id);
   if (thread.status === "missing") notFound();
-  if (thread.status !== "ok") return { title: "Message" };
+  if (thread.status !== "ok") return pageMeta(`/messages/${id}`, "Message", undefined, { index: false });
   const description = excerpt(thread.message.text[thread.message.orig] ?? "");
-  return {
-    title: thread.message.name ?? "Anonymous",
-    description: description || undefined,
-  };
+  return pageMeta(`/messages/${id}`, thread.message.name ?? "Anonymous", description || undefined, { type: "article" });
 }
 
 export default async function MessagePage({ params, searchParams }: MessagePageProps) {

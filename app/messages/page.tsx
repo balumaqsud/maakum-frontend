@@ -9,10 +9,12 @@ import { Button } from "@/components/ui/button";
 import { MessageCard } from "@/features/messages/components/message-card";
 import { listHref, PAGE_SIZE, parseListQuery, type ListParams } from "@/features/messages/list";
 import { getMessageFeed } from "@/lib/api";
+import { copy, pageMeta } from "@/lib/site";
 
-export const metadata: Metadata = {
-  title: "Messages",
-};
+export async function generateMetadata({ searchParams }: { searchParams: Promise<ListParams> }): Promise<Metadata> {
+  const query = parseListQuery(await searchParams);
+  return pageMeta("/messages", "Messages", copy("messagesLead"), { index: !query.cursor });
+}
 
 export default function MessagesPage({ searchParams }: { searchParams: Promise<ListParams> }) {
   return (

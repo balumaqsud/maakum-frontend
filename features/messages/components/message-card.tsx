@@ -47,16 +47,21 @@ export function MessageCard({
   const enTranslation = reading === "orig" && message.orig !== "en" ? message.text.en : undefined;
   const arTranslation = reading === "orig" && message.orig !== "ar" ? message.text.ar : undefined;
 
+  const nameClass = "font-semibold";
+  const identity = href ? (
+    <Link href={href} className={`${nameClass} underline decoration-1 underline-offset-4`}>
+      {name}
+    </Link>
+  ) : hero ? (
+    <h1 className={`${nameClass} font-sans text-[0.92rem]`}>{name}</h1>
+  ) : (
+    <span className={nameClass}>{name}</span>
+  );
+
   return (
     <article className="min-w-0 py-8">
-      <p className="mb-3 flex flex-wrap items-center gap-x-2 text-[0.92rem] text-ink">
-        {href ? (
-          <Link href={href} className="font-semibold underline decoration-1 underline-offset-4">
-            {name}
-          </Link>
-        ) : (
-          <span className="font-semibold">{name}</span>
-        )}
+      <div className="mb-3 flex flex-wrap items-center gap-x-2 text-[0.92rem] text-ink">
+        {identity}
         {place ? (
           <>
             <span aria-hidden className="text-ink-soft">
@@ -89,7 +94,7 @@ export function MessageCard({
         <span className="text-ink-soft">
           <Both en={replies.en} ar={replies.ar} />
         </span>
-      </p>
+      </div>
       {unavailable ? (
         <p className="mb-3 text-sm text-ink-soft">
           <LocaleText k="translationMissing" />

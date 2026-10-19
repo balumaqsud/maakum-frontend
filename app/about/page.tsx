@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
 import { LocaleText } from "@/components/shared/locale-text";
 import { SectionHeading } from "@/components/shared/section-heading";
+import { copy, pageMeta } from "@/lib/site";
 
-export const metadata: Metadata = {
-  title: "About",
-};
+export const metadata: Metadata = pageMeta("/about", "About", copy("aboutLead"));
 
 const steps = [
   ["how1Title", "how1Body"],

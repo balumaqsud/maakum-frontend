@@ -2,10 +2,9 @@ import type { Metadata } from "next";
 import { LocaleText } from "@/components/shared/locale-text";
 import { SectionHeading } from "@/components/shared/section-heading";
 import { MessageForm } from "@/app/write/message-form";
+import { copy, pageMeta } from "@/lib/site";
 
-export const metadata: Metadata = {
-  title: "Write",
-};
+export const metadata: Metadata = pageMeta("/write", "Write", copy("writeLead"));
 
 export default function WritePage() {
   return (

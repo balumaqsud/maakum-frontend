@@ -1,4 +1,5 @@
 import { Suspense } from "react";
+import type { Metadata } from "next";
 import { EmptyState } from "@/components/shared/empty-state";
 import { LocaleText } from "@/components/shared/locale-text";
 import { Ornament } from "@/components/shared/ornament";
@@ -7,6 +8,19 @@ import { Button } from "@/components/ui/button";
 import { MessageCard } from "@/features/messages/components/message-card";
 import { getHomeStats } from "@/features/messages/data";
 import { getFeaturedMessages } from "@/lib/api";
+import { copy, siteOrigin } from "@/lib/site";
+
+export const metadata: Metadata = {
+  alternates: { canonical: "/" },
+};
+
+const website = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: "Ma'akum",
+  description: copy("homeLead"),
+  url: siteOrigin(),
+};
 
 function HomeActions() {
   return (
@@ -48,6 +62,7 @@ export default function Home() {
 
   return (
     <article className="flex flex-col gap-16">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(website) }} />
       <header className="max-w-[40rem]">
         <SectionHeading
           as="h1"
