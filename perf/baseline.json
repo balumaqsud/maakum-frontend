@@ -1,0 +1,122 @@
+{
+  "before": {
+    "recordedAt": "2026-10-19T14:14:46.750Z",
+    "nextVersion": "16.4.2",
+    "viewport": {
+      "width": 1280,
+      "height": 800
+    },
+    "goals": {
+      "lcpMs": 2500,
+      "inpMs": 200,
+      "cls": 0.1
+    },
+    "build": {
+      "routeTable": "Route (app)           Revalidate  Expire\n┌ ◐ /                         1m      1h\n├ ○ /_not-found\n├ ○ /about\n├ ○ /hope\n├ ◐ /messages\n├   /messages/[id]\n│ └ ◐ /messages/[id]\n├ ○ /opengraph-image\n├ ○ /privacy\n├ ○ /robots.txt\n├ ƒ /sitemap.xml\n└ ○ /write",
+      "firstLoadJs": null,
+      "note": "Next.js 16 does not print a First Load JS column. scriptBytes is the JavaScript transferred in the browser."
+    },
+    "api": {
+      "path": "/messages?limit=4",
+      "status": 200,
+      "ttfbMs": 108,
+      "totalMs": 109
+    },
+    "homepage": {
+      "status": 200,
+      "ttfbMs": 193,
+      "totalMs": 272
+    },
+    "lab": {
+      "pages": [
+        {
+          "path": "/",
+          "lcpMs": 528,
+          "cls": 0,
+          "scriptBytes": 155485
+        },
+        {
+          "path": "/messages",
+          "lcpMs": 64,
+          "cls": 0.104,
+          "scriptBytes": 1262
+        },
+        {
+          "path": "/messages/c7dcbd3b-3227-46e0-8d70-947a62c39cde",
+          "lcpMs": 72,
+          "cls": 0,
+          "scriptBytes": 0
+        },
+        {
+          "path": "/write",
+          "lcpMs": 36,
+          "cls": 0,
+          "scriptBytes": 0
+        }
+      ],
+      "conversation": "/messages/c7dcbd3b-3227-46e0-8d70-947a62c39cde",
+      "reactionClickMs": 103,
+      "reactionNote": "Lab click duration for the reaction control. This is not field INP."
+    }
+  },
+  "after": {
+    "recordedAt": "2026-10-19T14:18:07.504Z",
+    "nextVersion": "16.4.2",
+    "viewport": {
+      "width": 1280,
+      "height": 800
+    },
+    "goals": {
+      "lcpMs": 2500,
+      "inpMs": 200,
+      "cls": 0.1
+    },
+    "build": {
+      "routeTable": "Route (app)           Revalidate  Expire\n┌ ◐ /                         1m      1h\n├ ○ /_not-found\n├ ○ /about\n├ ○ /hope\n├ ◐ /messages\n├   /messages/[id]\n│ └ ◐ /messages/[id]\n├ ○ /opengraph-image\n├ ○ /privacy\n├ ○ /robots.txt\n├ ƒ /sitemap.xml\n└ ○ /write",
+      "firstLoadJs": null,
+      "note": "Next.js 16 does not print a First Load JS column. scriptBytes is the JavaScript transferred in the browser."
+    },
+    "api": {
+      "path": "/messages?limit=4",
+      "status": 200,
+      "ttfbMs": 143,
+      "totalMs": 144
+    },
+    "homepage": {
+      "status": 200,
+      "ttfbMs": 50,
+      "totalMs": 125
+    },
+    "lab": {
+      "pages": [
+        {
+          "path": "/",
+          "lcpMs": 116,
+          "cls": 0,
+          "scriptBytes": 154658
+        },
+        {
+          "path": "/messages",
+          "lcpMs": 44,
+          "cls": 0.079,
+          "scriptBytes": 1262
+        },
+        {
+          "path": "/messages/c7dcbd3b-3227-46e0-8d70-947a62c39cde",
+          "lcpMs": 204,
+          "cls": 0,
+          "scriptBytes": 0
+        },
+        {
+          "path": "/write",
+          "lcpMs": 36,
+          "cls": 0,
+          "scriptBytes": 0
+        }
+      ],
+      "conversation": "/messages/c7dcbd3b-3227-46e0-8d70-947a62c39cde",
+      "reactionClickMs": 130,
+      "reactionNote": "Lab click duration for the reaction control. This is not field INP."
+    }
+  }
+}

@@ -24,8 +24,18 @@ export default function MessagesPage({ searchParams }: { searchParams: Promise<L
         title={<LocaleText k="messagesTitle" />}
         description={<LocaleText k="messagesLead" />}
       />
-      <Suspense fallback={<p className="mt-8 text-ink-soft"><LocaleText k="loading" /></p>}>
-        <MessageBrowser searchParams={searchParams} />
+      <Suspense
+        fallback={
+          <div className="mt-8 min-h-80">
+            <p className="text-ink-soft">
+              <LocaleText k="loading" />
+            </p>
+          </div>
+        }
+      >
+        <div className="min-h-80">
+          <MessageBrowser searchParams={searchParams} />
+        </div>
       </Suspense>
     </article>
   );

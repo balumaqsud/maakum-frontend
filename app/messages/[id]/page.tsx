@@ -32,8 +32,8 @@ export default async function MessagePage({ params, searchParams }: MessagePageP
   const { id } = await params;
   if (!isMessageId(id)) notFound();
   const query = parseListQuery(await searchParams);
-  const thread = await getMessageThread(id);
   const back = listHref(query);
+  const [thread, reached] = await Promise.all([getMessageThread(id), reachedIds()]);
 
   if (thread.status === "missing") notFound();
 
@@ -49,8 +49,6 @@ export default async function MessagePage({ params, searchParams }: MessagePageP
       />
     );
   }
-
-  const reached = await reachedIds();
 
   return (
     <article className="max-w-[40rem]">

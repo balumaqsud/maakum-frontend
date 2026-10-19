@@ -82,8 +82,18 @@ export default function Home() {
 
       <section>
         <SectionHeading as="h2" title={<LocaleText k="featuredTitle" />} />
-        <Suspense fallback={<p className="mt-8 text-ink-soft"><LocaleText k="loading" /></p>}>
-          <FeaturedMessages />
+        <Suspense
+          fallback={
+            <div className="mt-8 min-h-80">
+              <p className="text-ink-soft">
+                <LocaleText k="loading" />
+              </p>
+            </div>
+          }
+        >
+          <div className="min-h-80">
+            <FeaturedMessages />
+          </div>
         </Suspense>
       </section>
 
