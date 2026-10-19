@@ -276,6 +276,14 @@ export function getMessage(id: string): Message | undefined {
   return messages.find((message) => message.id === id);
 }
 
+export function getFeaturedMessages(): Message[] {
+  return messages.slice(0, 3);
+}
+
+export function getHomeStats(): Stats | null {
+  return null;
+}
+
 export function countryName(id: string, lang: "en" | "ar"): string {
   return countries.find((country) => country.id === id)?.[lang] ?? "";
 }

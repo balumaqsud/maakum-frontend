@@ -7,7 +7,7 @@ export function SiteFooter() {
     <footer className="mt-20 border-t border-line py-8 text-sm text-ink-soft">
       <Container className="flex flex-col gap-3">
         <p className="max-w-[44rem]">
-          <LocaleText k="care" />
+          <LocaleText k="footerLine" />
         </p>
         <span id="footer-nav-label" className="sr-only">
           <LocaleText k="navLabel" />

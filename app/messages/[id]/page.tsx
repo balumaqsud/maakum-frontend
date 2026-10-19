@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { EmptyState } from "@/components/shared/empty-state";
 import { LocaleText } from "@/components/shared/locale-text";
 import { Button } from "@/components/ui/button";
-import { countryName, getMessage, langs } from "@/features/messages/data";
+import { countryName, getMessage } from "@/features/messages/data";
 import { MessageCard } from "@/features/messages/components/message-card";
 import type { Reply } from "@/features/messages/types";
 import { translate } from "@/lib/i18n";
@@ -81,9 +81,6 @@ export default async function MessagePage({ params }: MessagePageProps) {
         <LocaleText k="backMessages" />
       </Button>
       <MessageCard message={message} hero />
-      <p className="text-sm text-ink-soft">
-        <Both en={langs[message.orig].en} ar={langs[message.orig].ar} />
-      </p>
       <section className="mt-12">
         <h2 className="text-[clamp(1.45rem,5vw,1.9rem)]">
           <LocaleText k="repliesTitle" />

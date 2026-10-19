@@ -10,6 +10,16 @@ const chrome = {
     privacy: "Privacy",
     care: "Every message and reply is reviewed before it appears. No politics, advertising or contact details.",
     navLabel: "Main",
+    navHome: "Home",
+    menu: "Menu",
+    closeMenu: "Close menu",
+    footerLine: "Across borders and distances, kindness still reaches you.",
+    statsFallback: "The verified counts are not available yet.",
+    translationLabel: "Translation",
+    featuredTitle: "Featured messages",
+    featuredEmpty: "No messages to show yet.",
+    homeCloseTitle: "Whenever you are ready.",
+    homeCloseLead: "Read a message, or leave a few kind words of your own.",
     homeTitle: "You are not alone.",
     homeLead:
       "Kind words from people all over the world, written for people in Gaza. Read them, answer them, or leave a few of your own.",
@@ -69,6 +79,16 @@ const chrome = {
     privacy: "الخصوصية",
     care: "تُراجَع كل رسالة وكل ردّ قبل أن يظهر. لا سياسة ولا إعلانات ولا بيانات تواصل.",
     navLabel: "التنقل",
+    navHome: "الرئيسية",
+    menu: "القائمة",
+    closeMenu: "إغلاق القائمة",
+    footerLine: "عبر الحدود والمسافات، ما زال اللطف يصل إليكم.",
+    statsFallback: "الأعداد الموثّقة غير متاحة بعد.",
+    translationLabel: "الترجمة",
+    featuredTitle: "رسائل مختارة",
+    featuredEmpty: "لا توجد رسائل لعرضها بعد.",
+    homeCloseTitle: "حين تكون مستعدًا.",
+    homeCloseLead: "اقرأ رسالة، أو اترك بضع كلمات طيبة من عندك.",
     homeTitle: "لستم وحدكم.",
     homeLead:
       "كلماتٌ طيبة من أناس في كل أنحاء العالم، كُتبت لأهل غزة. اقرؤوها، وردّوا عليها، أو اتركوا بضع كلمات من عندكم.",
@@ -124,4 +144,56 @@ export type ChromeKey = keyof typeof chrome.en;
 
 export function translate(lang: UiLang, key: ChromeKey): string {
   return chrome[lang][key] || chrome.en[key];
+}
+
+export const PAGE_TITLES: Record<string, { en: string; ar: string }> = {
+  "/": { en: "Ma'akum — You are not alone", ar: "معكم — لستم وحدكم." },
+  "/messages": { en: "Messages — Ma'akum", ar: "الرسائل — معكم" },
+  "/write": { en: "Write — Ma'akum", ar: "اكتب — معكم" },
+  "/about": { en: "About — Ma'akum", ar: "عن معكم — معكم" },
+  "/privacy": { en: "Privacy — Ma'akum", ar: "الخصوصية — معكم" },
+  "/hope": { en: "A little hope — Ma'akum", ar: "قليل من الأمل — معكم" },
+};
+
+const BRAND = { en: "Ma'akum", ar: "معكم" } as const;
+
+export function documentTitle(lang: UiLang, pathname: string, current = ""): string {
+  const exact = PAGE_TITLES[pathname];
+  if (exact) return exact[lang];
+
+  if (pathname.startsWith("/messages/")) {
+    const stem = current.split(" — ")[0]?.trim() ?? "";
+    if (!stem || stem === "Ma'akum" || stem === "معكم" || stem === "Messages" || stem === "الرسائل") {
+      return current || PAGE_TITLES["/messages"][lang];
+    }
+    if (stem === "Anonymous" || stem === "مجهول") return `${translate(lang, "anonymous")} — ${BRAND[lang]}`;
+    if (stem === "Message" || stem === "رسالة") return `${lang === "ar" ? "رسالة" : "Message"} — ${BRAND[lang]}`;
+    return `${stem} — ${BRAND[lang]}`;
+  }
+
+  return PAGE_TITLES["/"][lang];
+}
+
+export function relativeTime(minutes: number): { en: string; ar: string } {
+  const count =
+    minutes < 60 ? Math.max(1, minutes) : minutes < 1440 ? Math.max(1, Math.round(minutes / 60)) : Math.max(1, Math.round(minutes / 1440));
+  const unit = minutes < 60 ? "minute" : minutes < 1440 ? "hour" : "day";
+  const nouns = {
+    minute: ["minute", "minutes"],
+    hour: ["hour", "hours"],
+    day: ["day", "days"],
+  } as const;
+  const arabic = {
+    minute: ["دقيقة", "دقيقتين", "دقائق", "دقيقة"],
+    hour: ["ساعة", "ساعتين", "ساعات", "ساعة"],
+    day: ["يوم", "يومين", "أيام", "يوم"],
+  } as const;
+  const [one, two, few, many] = arabic[unit];
+  const ar =
+    count === 1 ? `قبل ${one}` : count === 2 ? `قبل ${two}` : count <= 10 ? `قبل ${count} ${few}` : `قبل ${count} ${many}`;
+
+  return {
+    en: `${count} ${nouns[unit][count === 1 ? 0 : 1]} ago`,
+    ar,
+  };
 }

@@ -1,11 +1,12 @@
 "use client";
 
 import { STORAGE_KEYS } from "@/lib/constants";
-import type { UiLang } from "@/lib/i18n";
+import { documentTitle, type UiLang } from "@/lib/i18n";
 
 export function applyUiLang(lang: UiLang) {
   document.documentElement.lang = lang;
   document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
+  document.title = documentTitle(lang, window.location.pathname, document.title);
 }
 
 export function LanguageSwitcher() {
