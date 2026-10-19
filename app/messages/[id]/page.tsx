@@ -4,6 +4,7 @@ import { LocaleText } from "@/components/shared/locale-text";
 import { Button } from "@/components/ui/button";
 import { countryName, getMessage } from "@/features/messages/data";
 import { MessageCard } from "@/features/messages/components/message-card";
+import { listHref, parseListQuery, type ListParams } from "@/features/messages/list";
 import type { Reply } from "@/features/messages/types";
 import { translate } from "@/lib/i18n";
 
@@ -20,7 +21,10 @@ function Both({ en, ar }: { en: string; ar: string }) {
 
 type MessagePageProps = {
   params: Promise<{ id: string }>;
+  searchParams: Promise<ListParams>;
 };
+
+export const instant = false;
 
 export async function generateMetadata({ params }: MessagePageProps): Promise<Metadata> {
   const { id } = await params;
@@ -60,16 +64,18 @@ function Thread({ replies }: { replies: Reply[] }) {
   );
 }
 
-export default async function MessagePage({ params }: MessagePageProps) {
+export default async function MessagePage({ params, searchParams }: MessagePageProps) {
   const { id } = await params;
+  const query = parseListQuery(await searchParams);
   const message = getMessage(id);
+  const back = listHref(query);
 
   if (!message) {
     return (
       <EmptyState
         title={<LocaleText k="missingTitle" />}
         body={<LocaleText k="missingBody" />}
-        href="/messages"
+        href={back}
         action={<LocaleText k="backMessages" />}
       />
     );
@@ -77,10 +83,10 @@ export default async function MessagePage({ params }: MessagePageProps) {
 
   return (
     <article className="max-w-[40rem]">
-      <Button href="/messages" variant="text">
+      <Button href={back} variant="text">
         <LocaleText k="backMessages" />
       </Button>
-      <MessageCard message={message} hero />
+      <MessageCard message={message} hero reading={query.read} showReading />
       <section className="mt-12">
         <h2 className="text-[clamp(1.45rem,5vw,1.9rem)]">
           <LocaleText k="repliesTitle" />

@@ -37,6 +37,18 @@ const chrome = {
       "Every message and reply is reviewed before it appears. No politics, no advertising, no contact details — only kindness.",
     messagesTitle: "Messages",
     messagesLead: "Words written for people in Gaza. Take your time.",
+    readIn: "Read in",
+    readOriginal: "Original",
+    readArabic: "Arabic",
+    readEnglish: "English",
+    filterAll: "All",
+    filterWithReplies: "With replies",
+    showMore: "Show more",
+    openConversation: "Read this conversation",
+    translationMissing: "This translation is not available yet.",
+    noMatchesTitle: "Nothing matches these choices.",
+    noMatchesBody: "You can clear them and read every message.",
+    clearFilters: "Clear filters",
     writeTitle: "Write a few kind words.",
     writeLead: "No account needed. Someone in Gaza may read your words today.",
     writeRules:
@@ -106,6 +118,18 @@ const chrome = {
       "تُراجَع كل رسالة وكل ردّ قبل أن يظهر. لا سياسة ولا إعلانات ولا بيانات تواصل، اللطف فقط.",
     messagesTitle: "الرسائل",
     messagesLead: "كلماتٌ كُتبت لأهل غزة. خذ وقتك.",
+    readIn: "اقرأها",
+    readOriginal: "الأصل",
+    readArabic: "العربية",
+    readEnglish: "الإنجليزية",
+    filterAll: "الكل",
+    filterWithReplies: "ذات ردود",
+    showMore: "أظهر المزيد",
+    openConversation: "اقرأ هذا الحوار",
+    translationMissing: "هذه الترجمة غير متاحة بعد.",
+    noMatchesTitle: "لا شيء يطابق هذا الاختيار.",
+    noMatchesBody: "يمكنك إلغاء الاختيار وقراءة كل الرسائل.",
+    clearFilters: "إلغاء الاختيار",
     writeTitle: "اكتب بضع كلمات طيبة.",
     writeLead: "لا حاجة إلى حساب. قد يقرأ أحدٌ في غزة كلماتك اليوم.",
     writeRules:
@@ -196,4 +220,13 @@ export function relativeTime(minutes: number): { en: string; ar: string } {
     en: `${count} ${nouns[unit][count === 1 ? 0 : 1]} ago`,
     ar,
   };
+}
+
+export function replyCount(count: number): { en: string; ar: string } {
+  if (count <= 0) {
+    return { en: translate("en", "noReplies"), ar: translate("ar", "noReplies") };
+  }
+  const ar =
+    count === 1 ? "ردّ واحد" : count === 2 ? "ردّان" : count <= 10 ? `${count} ردود` : `${count} ردًّا`;
+  return { en: count === 1 ? "1 reply" : `${count} replies`, ar };
 }
