@@ -1,13 +1,14 @@
 import { Suspense } from "react";
 import type { Metadata } from "next";
 import { EmptyState } from "@/components/shared/empty-state";
+import { ErrorState } from "@/components/shared/error-state";
 import { LocaleText } from "@/components/shared/locale-text";
 import { Ornament } from "@/components/shared/ornament";
 import { SectionHeading } from "@/components/shared/section-heading";
 import { Button } from "@/components/ui/button";
 import { MessageCard } from "@/features/messages/components/message-card";
 import { getHomeStats } from "@/features/messages/data";
-import { getFeaturedMessages } from "@/lib/api";
+import { getMessageFeed } from "@/lib/api";
 import { copy, siteOrigin } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -36,9 +37,17 @@ function HomeActions() {
 }
 
 async function FeaturedMessages() {
-  const featured = await getFeaturedMessages();
+  const featured = await getMessageFeed({ limit: 3 });
 
-  if (featured.length === 0) {
+  if (!featured) {
+    return (
+      <div className="mt-8">
+        <ErrorState title={<LocaleText k="errorTitle" />} />
+      </div>
+    );
+  }
+
+  if (featured.items.length === 0) {
     return (
       <div className="mt-8">
         <EmptyState title={<LocaleText k="featuredEmpty" />} />
@@ -48,7 +57,7 @@ async function FeaturedMessages() {
 
   return (
     <ul className="mt-4 divide-y divide-line">
-      {featured.map((message) => (
+      {featured.items.map((message) => (
         <li key={message.id}>
           <MessageCard message={message} href={`/messages/${message.id}`} />
         </li>

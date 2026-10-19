@@ -337,8 +337,10 @@ async function loadThread(id: string): Promise<
 
 export async function getMessageFeed(options: { limit: number; cursor?: string }): Promise<MessageFeed | null> {
   try {
-    const feed = await loadFeed(feedLimit(options.limit), options.cursor ?? "");
+    // Wait for a request before the cached read. A failed fill during `next build`
+    // is not stored, and it also fails the whole prerender.
     await connection();
+    const feed = await loadFeed(feedLimit(options.limit), options.cursor ?? "");
     return {
       items: feed.items.map((note) => toMessage(note)),
       nextCursor: feed.nextCursor,
@@ -348,16 +350,11 @@ export async function getMessageFeed(options: { limit: number; cursor?: string }
   }
 }
 
-export async function getFeaturedMessages(): Promise<Message[]> {
-  const feed = await getMessageFeed({ limit: 3 });
-  return feed?.items ?? [];
-}
-
 export async function getMessageThread(id: string): Promise<ThreadResult> {
   try {
+    await connection();
     const thread = await loadThread(id);
     if (thread.status === "missing") return thread;
-    await connection();
     return {
       status: "ok",
       repliesOk: thread.repliesOk,
