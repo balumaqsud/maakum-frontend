@@ -1,104 +1,85 @@
-import Link from "next/link";
 import { LocaleText } from "@/components/shared/locale-text";
+import { Ornament } from "@/components/shared/ornament";
+import { SectionHeading } from "@/components/shared/section-heading";
+import { Button } from "@/components/ui/button";
+import { MessageCard } from "@/features/messages/components/message-card";
 import { getMessage, stats } from "@/features/messages/data";
 
 export default function Home() {
   const featured = getMessage("m1");
-  const featuredText = featured?.text.en ?? featured?.text[featured.orig] ?? "";
-  const featuredLang = featured?.text.en ? "en" : (featured?.orig ?? "en");
 
   return (
-    <article className="flex flex-col gap-10">
-      <header className="max-w-xl">
-        <h1 className="text-[clamp(2.7rem,12vw,4.5rem)] font-medium leading-none tracking-tight">
-          <LocaleText k="homeTitle" />
-        </h1>
-        <p className="mt-4 text-lg text-neutral-700">
-          <LocaleText k="homeLead" />
-        </p>
-        <div className="mt-6 flex flex-wrap gap-3">
-          <Link href="/messages" className="rounded-full bg-neutral-900 px-4 py-2 text-white">
-            <LocaleText k="readMessages" />
-          </Link>
-          <Link href="/write" className="rounded-full border border-neutral-300 px-4 py-2">
-            <LocaleText k="writeMessage" />
-          </Link>
-        </div>
+    <article className="relative flex flex-col gap-16">
+      <Ornament />
+      <header className="relative max-w-[40rem]">
+        <SectionHeading
+          as="h1"
+          title={<LocaleText k="homeTitle" />}
+          description={<LocaleText k="homeLead" />}
+          action={
+            <div className="flex flex-wrap gap-3">
+              <Button href="/messages">
+                <LocaleText k="readMessages" />
+              </Button>
+              <Button href="/write" variant="secondary">
+                <LocaleText k="writeMessage" />
+              </Button>
+            </div>
+          }
+        />
       </header>
 
       {featured ? (
-        <section className="max-w-xl">
-          <h2 className="text-sm font-semibold tracking-wide uppercase">
+        <section className="relative max-w-[40rem] rounded-sheet border border-line bg-ivory px-6 py-2 shadow-sheet">
+          <h2 className="pt-6 font-sans text-[0.78rem] font-semibold tracking-[0.12em] text-ink-soft uppercase">
             <LocaleText k="featuredLabel" />
           </h2>
-          <p className="mt-3" lang={featuredLang} dir={featuredLang === "ar" ? "rtl" : "ltr"}>
-            {featuredText}
-          </p>
-          <Link href={`/messages/${featured.id}`} className="mt-3 inline-block underline">
+          <MessageCard message={featured} hero />
+          <Button href={`/messages/${featured.id}`} variant="text">
             <LocaleText k="readMessages" />
-          </Link>
+          </Button>
         </section>
       ) : null}
 
       <section>
-        <h2 className="text-2xl font-semibold">
-          <LocaleText k="howTitle" />
-        </h2>
-        <ol className="mt-4 grid gap-4 md:grid-cols-3">
-          <li>
-            <h3 className="font-semibold">
-              <LocaleText k="how1Title" />
-            </h3>
-            <p className="mt-1 text-neutral-700">
-              <LocaleText k="how1Body" />
-            </p>
-          </li>
-          <li>
-            <h3 className="font-semibold">
-              <LocaleText k="how2Title" />
-            </h3>
-            <p className="mt-1 text-neutral-700">
-              <LocaleText k="how2Body" />
-            </p>
-          </li>
-          <li>
-            <h3 className="font-semibold">
-              <LocaleText k="how3Title" />
-            </h3>
-            <p className="mt-1 text-neutral-700">
-              <LocaleText k="how3Body" />
-            </p>
-          </li>
+        <SectionHeading as="h2" title={<LocaleText k="howTitle" />} />
+        <ol className="mt-8 grid gap-8 md:grid-cols-3">
+          {(
+            [
+              ["how1Title", "how1Body"],
+              ["how2Title", "how2Body"],
+              ["how3Title", "how3Body"],
+            ] as const
+          ).map(([title, body], index) => (
+            <li key={title} className="min-w-0">
+              <span className="font-display text-[2.4rem] leading-none text-brass">{index + 1}</span>
+              <h3 className="mt-2 font-sans text-base font-semibold">
+                <LocaleText k={title} />
+              </h3>
+              <p className="mt-1 max-w-[22rem] text-ink-soft">
+                <LocaleText k={body} />
+              </p>
+            </li>
+          ))}
         </ol>
       </section>
 
-      <section className="max-w-xl">
-        <h2 className="text-2xl font-semibold">
-          <LocaleText k="careTitle" />
-        </h2>
-        <p className="mt-2 text-neutral-700">
-          <LocaleText k="careBody" />
-        </p>
+      <section className="max-w-[44rem]">
+        <SectionHeading as="h2" title={<LocaleText k="careTitle" />} description={<LocaleText k="careBody" />} />
       </section>
 
-      <ul className="flex flex-wrap gap-6">
+      <ul className="flex flex-wrap gap-x-6 gap-y-2 text-[0.92rem] text-ink-soft">
         <li>
-          <p className="text-2xl font-semibold">{stats.messages.toLocaleString("en")}</p>
-          <p>
-            <LocaleText k="statsMessages" />
-          </p>
+          <strong className="font-semibold text-ink">{stats.messages.toLocaleString("en")}</strong>{" "}
+          <LocaleText k="statsMessages" />
         </li>
         <li>
-          <p className="text-2xl font-semibold">{stats.countries.toLocaleString("en")}</p>
-          <p>
-            <LocaleText k="statsCountries" />
-          </p>
+          <strong className="font-semibold text-ink">{stats.countries.toLocaleString("en")}</strong>{" "}
+          <LocaleText k="statsCountries" />
         </li>
         <li>
-          <p className="text-2xl font-semibold">{stats.replies.toLocaleString("en")}</p>
-          <p>
-            <LocaleText k="statsReplies" />
-          </p>
+          <strong className="font-semibold text-ink">{stats.replies.toLocaleString("en")}</strong>{" "}
+          <LocaleText k="statsReplies" />
         </li>
       </ul>
     </article>

@@ -1,48 +1,40 @@
 import type { Metadata } from "next";
 import { LocaleText } from "@/components/shared/locale-text";
+import { SectionHeading } from "@/components/shared/section-heading";
 
 export const metadata: Metadata = {
   title: "About",
 };
 
+const steps = [
+  ["how1Title", "how1Body"],
+  ["how2Title", "how2Body"],
+  ["how3Title", "how3Body"],
+] as const;
+
 export default function AboutPage() {
   return (
-    <article className="max-w-xl">
-      <h1 className="text-3xl font-semibold tracking-tight">
-        <LocaleText k="aboutTitle" />
-      </h1>
-      <p className="mt-3 text-lg text-neutral-700">
-        <LocaleText k="aboutLead" />
-      </p>
-      <h2 className="mt-8 text-2xl font-semibold">
-        <LocaleText k="howTitle" />
-      </h2>
-      <ol className="mt-4 flex flex-col gap-4">
-        <li>
-          <h3 className="font-semibold">
-            <LocaleText k="how1Title" />
-          </h3>
-          <p className="mt-1 text-neutral-700">
-            <LocaleText k="how1Body" />
-          </p>
-        </li>
-        <li>
-          <h3 className="font-semibold">
-            <LocaleText k="how2Title" />
-          </h3>
-          <p className="mt-1 text-neutral-700">
-            <LocaleText k="how2Body" />
-          </p>
-        </li>
-        <li>
-          <h3 className="font-semibold">
-            <LocaleText k="how3Title" />
-          </h3>
-          <p className="mt-1 text-neutral-700">
-            <LocaleText k="how3Body" />
-          </p>
-        </li>
-      </ol>
+    <article className="max-w-[40rem]">
+      <SectionHeading
+        as="h1"
+        title={<LocaleText k="aboutTitle" />}
+        description={<LocaleText k="aboutLead" />}
+      />
+      <section className="mt-12">
+        <SectionHeading as="h2" title={<LocaleText k="howTitle" />} />
+        <ol className="mt-6 flex flex-col gap-6">
+          {steps.map(([title, body]) => (
+            <li key={title} className="min-w-0">
+              <h3 className="font-sans font-semibold">
+                <LocaleText k={title} />
+              </h3>
+              <p className="mt-1 text-ink-soft">
+                <LocaleText k={body} />
+              </p>
+            </li>
+          ))}
+        </ol>
+      </section>
     </article>
   );
 }

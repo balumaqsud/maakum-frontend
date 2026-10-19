@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { LocaleText } from "@/components/shared/locale-text";
+import { SectionHeading } from "@/components/shared/section-heading";
 
 export const metadata: Metadata = {
   title: "Privacy",
@@ -7,13 +8,12 @@ export const metadata: Metadata = {
 
 export default function PrivacyPage() {
   return (
-    <article className="max-w-xl">
-      <h1 className="text-3xl font-semibold tracking-tight">
-        <LocaleText k="privacyTitle" />
-      </h1>
-      <p className="mt-3 text-lg text-neutral-700">
-        <LocaleText k="privacyBody" />
-      </p>
+    <article className="max-w-[40rem]">
+      <SectionHeading
+        as="h1"
+        title={<LocaleText k="privacyTitle" />}
+        description={<LocaleText k="privacyBody" />}
+      />
     </article>
   );
 }

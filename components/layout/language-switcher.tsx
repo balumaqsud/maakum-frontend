@@ -22,7 +22,7 @@ export function LanguageSwitcher() {
   return (
     <button
       type="button"
-      className="rounded-full border border-neutral-300 px-3 py-2 text-sm"
+      className="inline-flex min-h-11 items-center rounded-full border border-line px-4 font-sans text-sm font-semibold text-ink-soft hover:bg-surface hover:text-ink"
       onClick={toggle}
     >
       <span className="locale-en" lang="ar">

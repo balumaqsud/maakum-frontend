@@ -2,6 +2,8 @@
 
 import { useEffect } from "react";
 import { LocaleText } from "@/components/shared/locale-text";
+import { ErrorState } from "@/components/shared/error-state";
+import { Button } from "@/components/ui/button";
 
 export default function Error({
   error,
@@ -15,13 +17,13 @@ export default function Error({
   }, [error]);
 
   return (
-    <div className="max-w-xl">
-      <h1 className="text-3xl font-semibold tracking-tight">
-        <LocaleText k="errorTitle" />
-      </h1>
-      <button type="button" className="mt-6 underline" onClick={() => retry()}>
-        <LocaleText k="retry" />
-      </button>
-    </div>
+    <ErrorState
+      title={<LocaleText k="errorTitle" />}
+      action={
+        <Button type="button" variant="text" onClick={() => retry()}>
+          <LocaleText k="retry" />
+        </Button>
+      }
+    />
   );
 }

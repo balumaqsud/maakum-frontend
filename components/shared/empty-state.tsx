@@ -1,4 +1,5 @@
-import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { StatePanel } from "@/components/shared/state-panel";
 
 export function EmptyState({
   title,
@@ -7,17 +8,17 @@ export function EmptyState({
   action,
 }: {
   title: React.ReactNode;
-  body: React.ReactNode;
-  href: string;
-  action: React.ReactNode;
+  body?: React.ReactNode;
+  href?: string;
+  action?: React.ReactNode;
 }) {
-  return (
-    <div className="max-w-xl">
-      <h1 className="text-3xl font-semibold tracking-tight">{title}</h1>
-      <p className="mt-3 text-lg text-neutral-700">{body}</p>
-      <Link href={href} className="mt-6 inline-block underline">
-        {action}
-      </Link>
-    </div>
+  const control = href ? (
+    <Button href={href} variant="text">
+      {action}
+    </Button>
+  ) : (
+    action
   );
+
+  return <StatePanel title={title} body={body} action={control} />;
 }

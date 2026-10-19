@@ -31,6 +31,11 @@ const chrome = {
     writeLead: "No account needed. Someone in Gaza may read your words today.",
     writeRules:
       "Please keep it kind: no politics, links, advertising or contact details. Every message is reviewed before it appears.",
+    writeField: "Your message",
+    writeHelp: "A few words are enough.",
+    writeEmpty: "Please write a few words first.",
+    send: "Send message",
+    loading: "One moment",
     hopeTitle: "A little hope, one note at a time.",
     hopeLead: "Take a breath. Someone wrote this for you.",
     aboutTitle: "About Ma'akum",
@@ -85,6 +90,11 @@ const chrome = {
     writeLead: "لا حاجة إلى حساب. قد يقرأ أحدٌ في غزة كلماتك اليوم.",
     writeRules:
       "من فضلك اجعلها لطيفة: بلا سياسة أو روابط أو إعلانات أو بيانات تواصل. تُراجَع كل رسالة قبل أن تظهر.",
+    writeField: "رسالتك",
+    writeHelp: "بضع كلمات تكفي.",
+    writeEmpty: "من فضلك اكتب بضع كلمات أولًا.",
+    send: "أرسل الرسالة",
+    loading: "لحظة",
     hopeTitle: "قليل من الأمل، رسالة بعد رسالة.",
     hopeLead: "خذ نفسًا عميقًا. شخصٌ كتب هذا من أجلك.",
     aboutTitle: "عن معكم",

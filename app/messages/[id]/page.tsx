@@ -1,8 +1,9 @@
-import Link from "next/link";
 import type { Metadata } from "next";
 import { EmptyState } from "@/components/shared/empty-state";
 import { LocaleText } from "@/components/shared/locale-text";
+import { Button } from "@/components/ui/button";
 import { countryName, getMessage, langs } from "@/features/messages/data";
+import { MessageCard } from "@/features/messages/components/message-card";
 import type { Reply } from "@/features/messages/types";
 import { translate } from "@/lib/i18n";
 
@@ -30,22 +31,26 @@ export async function generateMetadata({ params }: MessagePageProps): Promise<Me
 function Thread({ replies }: { replies: Reply[] }) {
   if (replies.length === 0) {
     return (
-      <p className="mt-4 text-neutral-700">
+      <p className="mt-4 text-ink-soft">
         <LocaleText k="noReplies" />
       </p>
     );
   }
 
   return (
-    <ul className="mt-4 flex flex-col gap-4 border-s border-neutral-200 ps-4">
+    <ul className="mt-4 flex flex-col gap-4">
       {replies.map((reply) => (
-        <li key={reply.id}>
-          <p className="text-sm text-neutral-600">
-            {reply.name ?? <LocaleText k="anonymous" />}
-            {" · "}
-            <Both en={countryName(reply.country, "en")} ar={countryName(reply.country, "ar")} />
+        <li key={reply.id} className="min-w-0 border-s-2 border-line ps-5">
+          <p className="text-[0.88rem] text-ink">
+            <span className="font-semibold">{reply.name ?? <LocaleText k="anonymous" />}</span>
+            <span aria-hidden className="px-2 text-ink-soft">
+              ·
+            </span>
+            <span className="text-ink-soft">
+              <Both en={countryName(reply.country, "en")} ar={countryName(reply.country, "ar")} />
+            </span>
           </p>
-          <p lang={reply.orig} dir={reply.orig === "ar" ? "rtl" : "ltr"}>
+          <p className="quote mt-2 text-[1.14rem]" lang={reply.orig} dir={reply.orig === "ar" ? "rtl" : "ltr"}>
             {reply.text[reply.orig]}
           </p>
           {reply.children ? <Thread replies={reply.children} /> : null}
@@ -71,23 +76,16 @@ export default async function MessagePage({ params }: MessagePageProps) {
   }
 
   return (
-    <article className="max-w-xl">
-      <Link href="/messages" className="underline">
+    <article className="max-w-[40rem]">
+      <Button href="/messages" variant="text">
         <LocaleText k="backMessages" />
-      </Link>
-      <h1 className="mt-4 text-3xl font-semibold tracking-tight">
-        {message.name ?? <LocaleText k="anonymous" />}
-      </h1>
-      <p className="mt-1 text-sm text-neutral-600">
-        <Both en={countryName(message.country, "en")} ar={countryName(message.country, "ar")} />
-        {" · "}
+      </Button>
+      <MessageCard message={message} hero />
+      <p className="text-sm text-ink-soft">
         <Both en={langs[message.orig].en} ar={langs[message.orig].ar} />
       </p>
-      <p className="mt-4 text-lg" lang={message.orig} dir={message.orig === "ar" ? "rtl" : "ltr"}>
-        {message.text[message.orig]}
-      </p>
-      <section className="mt-8">
-        <h2 className="text-xl font-semibold">
+      <section className="mt-12">
+        <h2 className="text-[clamp(1.45rem,5vw,1.9rem)]">
           <LocaleText k="repliesTitle" />
         </h2>
         <Thread replies={message.replies} />
