@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#F7F2E8">
+  <title>Write a message — Ma'akum</title>
+  <script>try{if(localStorage.getItem('maakum.lang')==='ar'){document.documentElement.lang='ar';document.documentElement.dir='rtl'}}catch(e){}</script>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body data-page="send">
+  <a class="skip" href="#main" data-i18n="skip">Skip to content</a>
+
+  <div class="wrap">
+    <header class="site-header">
+      <a class="brand" href="index.html" aria-label="Ma'akum"><span class="brand-ar" lang="ar">معكم</span><span class="brand-en">Ma'akum</span></a>
+      <nav class="nav" aria-label="Main">
+        <a href="messages.html" data-page="messages" data-i18n="nav_read">Read</a>
+        <a href="send.html" data-page="send" class="nav-write" data-i18n="nav_write">Write</a>
+        <button type="button" class="lang-toggle" id="langToggle" lang="ar">العربية</button>
+      </nav>
+    </header>
+  </div>
+
+  <main id="main" class="wrap split">
+    <aside class="side">
+      <p class="kicker" data-i18n="send_kicker">Write</p>
+      <h1 class="h1" data-i18n="send_title">Write a few kind words.</h1>
+      <p class="lead-sm" data-i18n="send_lead">No account needed. Someone in Gaza may read your words today.</p>
+      <p class="rules" data-i18n="send_rules">Please keep it kind: no politics, links, advertising or contact details. Every message is reviewed before it appears.</p>
+    </aside>
+
+    <section class="note-col">
+      <form id="sendForm" novalidate>
+        <div class="field">
+          <label for="msg" data-i18n="f_msg">Your message</label>
+          <textarea class="input" id="msg" rows="7" maxlength="500" dir="auto" placeholder="Say hello. Say you’re thinking of them. A few words are enough."></textarea>
+          <p class="counter" id="counter" aria-hidden="true">0 / 500</p>
+          <div class="starters">
+            <span class="lbl" data-i18n="starters">Not sure how to begin?</span>
+            <span id="starterBtns" class="starters"></span>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="sname"><span data-i18n="f_name">Your name</span> <span class="opt" data-i18n="f_opt">(optional)</span></label>
+          <input class="input" id="sname" type="text" maxlength="40" autocomplete="given-name" dir="auto">
+        </div>
+
+        <div class="field">
+          <label for="scountry"><span data-i18n="f_country">Where are you writing from?</span> <span class="opt" data-i18n="f_opt">(optional)</span></label>
+          <select class="input" id="scountry"></select>
+        </div>
+
+        <p class="err" id="serr" role="alert"></p>
+        <button type="submit" class="btn btn-primary" data-i18n="send_btn">Send message</button>
+        <p class="send-meta" data-i18n="send_translate">We’ll make it readable in Arabic and English.</p>
+      </form>
+
+      <div class="done" id="sendDone" tabindex="-1" hidden>
+        <svg class="check" viewBox="0 0 76 76" aria-hidden="true"><circle cx="38" cy="38" r="30"/><path d="M26 39l9 9 16-18"/></svg>
+        <h2 data-i18n="ok_title">Your words are on their way.</h2>
+        <p data-i18n="ok_body">Your message will be reviewed before it appears. Thank you for reminding someone that they are not alone.</p>
+        <div class="preview">
+          <p class="eyebrow" data-i18n="ok_label">What you wrote</p>
+          <p class="t" id="preview"></p>
+          <p class="send-meta" id="previewMeta"></p>
+        </div>
+        <div class="cta-row" style="justify-content:center">
+          <a class="btn btn-primary" href="messages.html" data-i18n="ok_read">Read messages</a>
+          <button type="button" class="btn btn-ghost" id="again" data-i18n="ok_again">Write another</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <p data-i18n="foot_rules">Every message and reply is reviewed before it appears. No politics, advertising or contact details.</p>
+      <p data-i18n="foot_proto">Ma'akum is a design prototype. The messages shown are examples.</p>
+    </div>
+  </footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

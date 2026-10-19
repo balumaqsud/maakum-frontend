@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#F7F2E8">
+  <title>Messages — Ma'akum</title>
+  <script>try{if(localStorage.getItem('maakum.lang')==='ar'){document.documentElement.lang='ar';document.documentElement.dir='rtl'}}catch(e){}</script>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body data-page="messages">
+  <a class="skip" href="#main" data-i18n="skip">Skip to content</a>
+
+  <div class="wrap">
+    <header class="site-header">
+      <a class="brand" href="index.html" aria-label="Ma'akum"><span class="brand-ar" lang="ar">معكم</span><span class="brand-en">Ma'akum</span></a>
+      <nav class="nav" aria-label="Main">
+        <a href="messages.html" data-page="messages" data-i18n="nav_read">Read</a>
+        <a href="send.html" data-page="send" class="nav-write" data-i18n="nav_write">Write</a>
+        <button type="button" class="lang-toggle" id="langToggle" lang="ar">العربية</button>
+      </nav>
+    </header>
+  </div>
+
+  <main id="main" class="wrap split">
+    <aside class="side">
+      <p class="kicker" data-i18n="msgs_kicker">From around the world</p>
+      <h1 class="h1" data-i18n="msgs_title">Messages</h1>
+      <p class="lead-sm" data-i18n="msgs_lead">Words written for people in Gaza. Take your time.</p>
+      <div class="controls">
+        <div class="control"><span class="ctl-label" data-i18n="read_in">Read in</span><div class="seg" id="readSeg" role="group"></div></div>
+        <div class="control"><span class="ctl-label" data-i18n="show_lbl">Show</span><div class="seg" id="filterSeg" role="group"></div></div>
+      </div>
+      <a class="link" href="hope.html" data-i18n="hope_link">Read one at a time</a>
+    </aside>
+
+    <section class="notes" aria-label="Messages">
+      <div id="noteList"></div>
+      <div class="more" id="more"></div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <p data-i18n="foot_rules">Every message and reply is reviewed before it appears. No politics, advertising or contact details.</p>
+      <p data-i18n="foot_proto">Ma'akum is a design prototype. The messages shown are examples.</p>
+    </div>
+  </footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

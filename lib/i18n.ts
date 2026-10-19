@@ -1,0 +1,199 @@
+export type UiLang = "en" | "ar";
+
+const chrome = {
+  en: {
+    skip: "Skip to content",
+    read: "Read",
+    write: "Write",
+    close: "Close",
+    about: "About",
+    privacy: "Privacy",
+    care: "Every message and reply is reviewed before it appears. No politics, advertising or contact details.",
+    navLabel: "Main",
+    navHome: "Home",
+    menu: "Menu",
+    closeMenu: "Close menu",
+    footerLine: "Across borders and distances, kindness still reaches you.",
+    statsFallback: "The verified counts are not available yet.",
+    translationLabel: "Translation",
+    featuredTitle: "Featured messages",
+    featuredEmpty: "No messages to show yet.",
+    homeCloseTitle: "Whenever you are ready.",
+    homeCloseLead: "Read a message, or leave a few kind words of your own.",
+    homeTitle: "You are not alone.",
+    homeLead:
+      "Kind words from people all over the world, written for people in Gaza. Read them, answer them, or leave a few of your own.",
+    readMessages: "Read messages",
+    writeMessage: "Write a message",
+    howTitle: "How it works",
+    how1Title: "Someone writes",
+    how1Body: "No account. A few kind words, and a country if you like.",
+    how2Title: "Someone reads",
+    how2Body: "A person in Gaza opens it and sees they were thought of.",
+    how3Title: "An answer comes back",
+    how3Body: "Short and sincere, from one person to another.",
+    careTitle: "A gentle space",
+    careBody:
+      "Every message and reply is reviewed before it appears. No politics, no advertising, no contact details — only kindness.",
+    messagesTitle: "Messages",
+    messagesLead: "Words written for people in Gaza. Take your time.",
+    writeTitle: "Write a few kind words.",
+    writeLead: "No account needed. Someone in Gaza may read your words today.",
+    writeRules:
+      "Please keep it kind: no politics, links, advertising or contact details. Every message is reviewed before it appears.",
+    writeField: "Your message",
+    writeHelp: "A few words are enough.",
+    writeEmpty: "Please write a few words first.",
+    send: "Send message",
+    loading: "One moment",
+    hopeTitle: "A little hope, one note at a time.",
+    hopeLead: "Take a breath. Someone wrote this for you.",
+    aboutTitle: "About Ma'akum",
+    aboutLead:
+      "Ma'akum is a quiet place for kind words written for people in Gaza. There is no account.",
+    privacyTitle: "Privacy",
+    privacyBody:
+      "The messages on this site are examples, not notes from visitors. Sending a message or a reply here does not upload it. Language, reading language, reactions, and theme stay in this browser under maakum.lang, maakum.read, maakum.react, and maakum.theme. There is no account and no saved copy of what you type.",
+    notFoundTitle: "We couldn’t find that page",
+    notFoundBody: "You can return home and read messages from there.",
+    backHome: "Back home",
+    missingTitle: "We couldn’t find that message",
+    missingBody: "It may have been removed. You can read other messages instead.",
+    backMessages: "Back to messages",
+    errorTitle: "Something went wrong",
+    retry: "Try again",
+    anonymous: "Anonymous",
+    noReplies: "No replies yet.",
+    repliesTitle: "Replies",
+    statsMessages: "messages",
+    statsCountries: "countries",
+    statsReplies: "replies",
+    featuredLabel: "A small exchange",
+  },
+  ar: {
+    skip: "انتقل إلى المحتوى",
+    read: "اقرأ",
+    write: "اكتب",
+    close: "إغلاق",
+    about: "عن معكم",
+    privacy: "الخصوصية",
+    care: "تُراجَع كل رسالة وكل ردّ قبل أن يظهر. لا سياسة ولا إعلانات ولا بيانات تواصل.",
+    navLabel: "التنقل",
+    navHome: "الرئيسية",
+    menu: "القائمة",
+    closeMenu: "إغلاق القائمة",
+    footerLine: "عبر الحدود والمسافات، ما زال اللطف يصل إليكم.",
+    statsFallback: "الأعداد الموثّقة غير متاحة بعد.",
+    translationLabel: "الترجمة",
+    featuredTitle: "رسائل مختارة",
+    featuredEmpty: "لا توجد رسائل لعرضها بعد.",
+    homeCloseTitle: "حين تكون مستعدًا.",
+    homeCloseLead: "اقرأ رسالة، أو اترك بضع كلمات طيبة من عندك.",
+    homeTitle: "لستم وحدكم.",
+    homeLead:
+      "كلماتٌ طيبة من أناس في كل أنحاء العالم، كُتبت لأهل غزة. اقرؤوها، وردّوا عليها، أو اتركوا بضع كلمات من عندكم.",
+    readMessages: "اقرأ الرسائل",
+    writeMessage: "اكتب رسالة",
+    howTitle: "كيف يعمل",
+    how1Title: "شخصٌ يكتب",
+    how1Body: "بلا حساب. بضع كلمات طيبة، ودولتك إن أحببت.",
+    how2Title: "شخصٌ يقرأ",
+    how2Body: "يفتحها أحدٌ في غزة فيرى أن هناك من فكّر فيه.",
+    how3Title: "ويأتي الرد",
+    how3Body: "قصيرٌ وصادق، من إنسان إلى إنسان.",
+    careTitle: "مساحة هادئة",
+    careBody:
+      "تُراجَع كل رسالة وكل ردّ قبل أن يظهر. لا سياسة ولا إعلانات ولا بيانات تواصل، اللطف فقط.",
+    messagesTitle: "الرسائل",
+    messagesLead: "كلماتٌ كُتبت لأهل غزة. خذ وقتك.",
+    writeTitle: "اكتب بضع كلمات طيبة.",
+    writeLead: "لا حاجة إلى حساب. قد يقرأ أحدٌ في غزة كلماتك اليوم.",
+    writeRules:
+      "من فضلك اجعلها لطيفة: بلا سياسة أو روابط أو إعلانات أو بيانات تواصل. تُراجَع كل رسالة قبل أن تظهر.",
+    writeField: "رسالتك",
+    writeHelp: "بضع كلمات تكفي.",
+    writeEmpty: "من فضلك اكتب بضع كلمات أولًا.",
+    send: "أرسل الرسالة",
+    loading: "لحظة",
+    hopeTitle: "قليل من الأمل، رسالة بعد رسالة.",
+    hopeLead: "خذ نفسًا عميقًا. شخصٌ كتب هذا من أجلك.",
+    aboutTitle: "عن معكم",
+    aboutLead: "معكم مكان هادئ لكلمات طيبة كُتبت لأهل غزة. لا يوجد حساب.",
+    privacyTitle: "الخصوصية",
+    privacyBody:
+      "الرسائل في هذا الموقع أمثلة، وليست كتابات من الزوار. إرسال رسالة أو رد هنا لا يرفعه إلى أي خادم. تبقى اللغة ولغة القراءة والتفاعلات والمظهر في هذا المتصفح تحت المفاتيح maakum.lang و maakum.read و maakum.react و maakum.theme. لا يوجد حساب، ولا تُحفظ نسخة مما تكتبه.",
+    notFoundTitle: "تعذّر العثور على هذه الصفحة",
+    notFoundBody: "يمكنك العودة إلى البداية وقراءة الرسائل من هناك.",
+    backHome: "العودة إلى البداية",
+    missingTitle: "تعذّر العثور على هذه الرسالة",
+    missingBody: "ربما أُزيلت. يمكنك قراءة رسائل أخرى.",
+    backMessages: "العودة إلى الرسائل",
+    errorTitle: "حدث خطأ",
+    retry: "حاول مرة أخرى",
+    anonymous: "مجهول",
+    noReplies: "لا توجد ردود بعد.",
+    repliesTitle: "الردود",
+    statsMessages: "رسالة",
+    statsCountries: "دولة",
+    statsReplies: "ردًّا",
+    featuredLabel: "حوار صغير",
+  },
+} as const;
+
+export type ChromeKey = keyof typeof chrome.en;
+
+export function translate(lang: UiLang, key: ChromeKey): string {
+  return chrome[lang][key] || chrome.en[key];
+}
+
+export const PAGE_TITLES: Record<string, { en: string; ar: string }> = {
+  "/": { en: "Ma'akum — You are not alone", ar: "معكم — لستم وحدكم." },
+  "/messages": { en: "Messages — Ma'akum", ar: "الرسائل — معكم" },
+  "/write": { en: "Write — Ma'akum", ar: "اكتب — معكم" },
+  "/about": { en: "About — Ma'akum", ar: "عن معكم — معكم" },
+  "/privacy": { en: "Privacy — Ma'akum", ar: "الخصوصية — معكم" },
+  "/hope": { en: "A little hope — Ma'akum", ar: "قليل من الأمل — معكم" },
+};
+
+const BRAND = { en: "Ma'akum", ar: "معكم" } as const;
+
+export function documentTitle(lang: UiLang, pathname: string, current = ""): string {
+  const exact = PAGE_TITLES[pathname];
+  if (exact) return exact[lang];
+
+  if (pathname.startsWith("/messages/")) {
+    const stem = current.split(" — ")[0]?.trim() ?? "";
+    if (!stem || stem === "Ma'akum" || stem === "معكم" || stem === "Messages" || stem === "الرسائل") {
+      return current || PAGE_TITLES["/messages"][lang];
+    }
+    if (stem === "Anonymous" || stem === "مجهول") return `${translate(lang, "anonymous")} — ${BRAND[lang]}`;
+    if (stem === "Message" || stem === "رسالة") return `${lang === "ar" ? "رسالة" : "Message"} — ${BRAND[lang]}`;
+    return `${stem} — ${BRAND[lang]}`;
+  }
+
+  return PAGE_TITLES["/"][lang];
+}
+
+export function relativeTime(minutes: number): { en: string; ar: string } {
+  const count =
+    minutes < 60 ? Math.max(1, minutes) : minutes < 1440 ? Math.max(1, Math.round(minutes / 60)) : Math.max(1, Math.round(minutes / 1440));
+  const unit = minutes < 60 ? "minute" : minutes < 1440 ? "hour" : "day";
+  const nouns = {
+    minute: ["minute", "minutes"],
+    hour: ["hour", "hours"],
+    day: ["day", "days"],
+  } as const;
+  const arabic = {
+    minute: ["دقيقة", "دقيقتين", "دقائق", "دقيقة"],
+    hour: ["ساعة", "ساعتين", "ساعات", "ساعة"],
+    day: ["يوم", "يومين", "أيام", "يوم"],
+  } as const;
+  const [one, two, few, many] = arabic[unit];
+  const ar =
+    count === 1 ? `قبل ${one}` : count === 2 ? `قبل ${two}` : count <= 10 ? `قبل ${count} ${few}` : `قبل ${count} ${many}`;
+
+  return {
+    en: `${count} ${nouns[unit][count === 1 ? 0 : 1]} ago`,
+    ar,
+  };
+}

@@ -1,1 +1,128 @@
 @import "tailwindcss";
+
+@theme {
+  --spacing: 4px;
+
+  --color-ivory: #f8f5ee;
+  --color-surface: #f3eee4;
+  --color-olive: #204c40;
+  --color-olive-soft: #e4ede8;
+  --color-brass: #a77a3d;
+  --color-ink: #172923;
+  --color-ink-soft: #3c4a44;
+  --color-line: #e2dacc;
+  --color-danger: #7a2e24;
+
+  --radius-field: 14px;
+  --radius-sheet: 24px;
+  --shadow-sheet: 0 24px 48px -34px rgb(23 41 35 / 0.28);
+}
+
+@theme inline {
+  --font-sans: var(--font-source-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-source-serif), "Iowan Old Style", Palatino, Georgia, serif;
+}
+
+:root {
+  --font-arabic: var(--font-naskh), "Geeza Pro", "Traditional Arabic", serif;
+  --font-arabic-sans: var(--font-noto-sans-arabic), Tahoma, sans-serif;
+}
+
+html[lang="ar"] .locale-en {
+  display: none;
+}
+
+html:not([lang="ar"]) .locale-ar {
+  display: none;
+}
+
+body {
+  background: var(--color-ivory);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  line-height: 1.6;
+}
+
+html[lang="ar"] body {
+  font-family: var(--font-arabic-sans), var(--font-sans);
+  line-height: 1.75;
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-olive);
+  outline-offset: 3px;
+}
+
+h1,
+h2,
+.font-display {
+  font-family: var(--font-serif);
+  font-weight: 500;
+}
+
+html[lang="ar"] :is(h1, h2, h3, .font-display) {
+  font-family: var(--font-arabic), var(--font-serif);
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.quote {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  text-wrap: pretty;
+  overflow-wrap: anywhere;
+  min-width: 0;
+}
+
+.quote[lang="ar"] {
+  font-family: var(--font-arabic), var(--font-serif);
+  line-height: 1.95;
+}
+
+html[lang="ar"] .quote {
+  font-family: var(--font-arabic), var(--font-serif);
+}
+
+.font-arabic {
+  font-family: var(--font-arabic), var(--font-serif);
+}
+
+.quote[lang="ko"] {
+  font-family: var(--font-sans);
+  line-height: 1.7;
+}
+
+.field-control {
+  width: 100%;
+  min-height: 52px;
+  padding: 14px 16px;
+  background: var(--color-ivory);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-field);
+  font: inherit;
+  color: inherit;
+}
+
+textarea.field-control {
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  line-height: 1.6;
+  resize: vertical;
+}
+
+html[lang="ar"] textarea.field-control {
+  font-family: var(--font-arabic), var(--font-serif);
+}
+
+.field-control[aria-invalid="true"] {
+  border-color: var(--color-danger);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+    animation: none !important;
+  }
+}

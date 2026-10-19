@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#F7F2E8">
+  <title>A message — Ma'akum</title>
+  <script>try{if(localStorage.getItem('maakum.lang')==='ar'){document.documentElement.lang='ar';document.documentElement.dir='rtl'}}catch(e){}</script>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body data-page="message">
+  <a class="skip" href="#main" data-i18n="skip">Skip to content</a>
+
+  <div class="wrap">
+    <header class="site-header">
+      <a class="brand" href="index.html" aria-label="Ma'akum"><span class="brand-ar" lang="ar">معكم</span><span class="brand-en">Ma'akum</span></a>
+      <nav class="nav" aria-label="Main">
+        <a href="messages.html" data-page="messages" data-i18n="nav_read">Read</a>
+        <a href="send.html" data-page="send" class="nav-write" data-i18n="nav_write">Write</a>
+        <button type="button" class="lang-toggle" id="langToggle" lang="ar">العربية</button>
+      </nav>
+    </header>
+  </div>
+
+  <main id="main" class="wrap narrow">
+    <a class="link back" href="messages.html"><span class="arrow" aria-hidden="true">←</span> <span data-i18n="back">Back to messages</span></a>
+
+    <div id="original"></div>
+
+    <section class="thread" id="threadWrap" aria-labelledby="thTitle">
+      <h2 class="eyebrow" id="thTitle">Replies</h2>
+
+      <div id="replySlot">
+        <form class="rf" id="replyForm" novalidate>
+          <p class="rf-to" id="rf-to" hidden></p>
+          <label class="sr-only" for="rf-text" data-i18n="rf_label">Your reply</label>
+          <textarea class="input" id="rf-text" rows="2" maxlength="400" dir="auto" data-i18n-ph="reply_ph" placeholder="Write a few words back…"></textarea>
+          <div class="rf-more">
+            <input class="input" id="rf-name" type="text" maxlength="40" autocomplete="off" dir="auto" data-i18n-ph="rf_name" placeholder="Your name (optional)" aria-label="Your name (optional)">
+            <select class="input" id="rf-country" aria-label="Country (optional)"></select>
+          </div>
+          <p class="err" id="rf-err" role="alert"></p>
+          <div class="rf-actions">
+            <button type="submit" class="btn btn-primary btn-sm" data-i18n="rf_send">Send reply</button>
+            <button type="button" class="btn-text" id="rf-cancel" hidden data-i18n="rf_cancel">Cancel</button>
+          </div>
+          <p class="rf-live" id="rf-live" role="status"></p>
+        </form>
+      </div>
+
+      <div id="thread"></div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <p data-i18n="foot_rules">Every message and reply is reviewed before it appears. No politics, advertising or contact details.</p>
+      <p data-i18n="foot_proto">Ma'akum is a design prototype. The messages shown are examples.</p>
+    </div>
+  </footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
