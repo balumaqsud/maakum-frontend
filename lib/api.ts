@@ -1,5 +1,14 @@
+import { cookies } from "next/headers";
 import { connection } from "next/server";
 import type { Message, Reply } from "@/features/messages/types";
+
+const VISITOR_COOKIE = "maakum_visitor";
+
+export const MESSAGE_ID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
+export function isMessageId(id: string): boolean {
+  return MESSAGE_ID.test(id);
+}
 
 type ApiNote = {
   id: string;
@@ -10,6 +19,7 @@ type ApiNote = {
   originalLanguage: string | null;
   translations: Record<string, string>;
   replyCount: number;
+  reactionCount: number;
   publishedAt?: string;
   createdAt?: string;
 };
@@ -20,9 +30,17 @@ export type MessageFeed = {
 };
 
 export type ThreadResult =
-  | { status: "ok"; message: Message }
+  | { status: "ok"; message: Message; repliesOk: boolean }
   | { status: "missing" }
   | { status: "error" };
+
+export type WriteResult =
+  | { ok: true }
+  | { ok: false; status: number | "unavailable"; fields: Record<string, string> };
+
+export type ReactionResult =
+  | { ok: true; reacted: boolean; reactionCount: number }
+  | { ok: false; status: number | "unavailable" };
 
 function apiBase(): string | null {
   const value = process.env.API_URL?.trim().replace(/\/$/, "");
@@ -73,6 +91,7 @@ function asNote(value: unknown): ApiNote | null {
     originalLanguage: typeof note.originalLanguage === "string" ? note.originalLanguage : null,
     translations,
     replyCount: typeof note.replyCount === "number" ? note.replyCount : 0,
+    reactionCount: typeof note.reactionCount === "number" ? note.reactionCount : 0,
     publishedAt: typeof note.publishedAt === "string" ? note.publishedAt : undefined,
     createdAt: typeof note.createdAt === "string" ? note.createdAt : undefined,
   };
@@ -90,6 +109,7 @@ function toMessage(note: ApiNote, replies: Reply[] = []): Message {
     orig,
     ago: minutesSince(note.publishedAt ?? note.createdAt),
     replyCount: note.replyCount,
+    reactionCount: note.reactionCount,
     text,
     replies,
   };
@@ -103,6 +123,7 @@ function toReply(note: ApiNote): Reply {
     country: message.country,
     orig: message.orig,
     ago: message.ago,
+    reactionCount: message.reactionCount,
     text: message.text,
   };
 }
@@ -161,12 +182,121 @@ export async function getMessageThread(id: string): Promise<ThreadResult> {
   const root = asNote(body.root);
   if (!root) return { status: "error" };
 
-  const replies = Array.isArray(body.replies)
-    ? nestReplies(body.replies.flatMap((item) => {
+  const replyItems = Array.isArray(body.replies) ? body.replies : null;
+  const replies = replyItems
+    ? nestReplies(replyItems.flatMap((item) => {
         const note = asNote(item);
         return note ? [note] : [];
       }))
     : [];
 
-  return { status: "ok", message: toMessage(root, replies) };
+  return { status: "ok", message: toMessage(root, replies), repliesOk: replyItems !== null };
+}
+
+async function visitorHeader(): Promise<string | undefined> {
+  const store = await cookies();
+  const value = store.get(VISITOR_COOKIE)?.value;
+  return value ? `${VISITOR_COOKIE}=${value}` : undefined;
+}
+
+async function rememberVisitor(headers: Headers) {
+  const listed = typeof headers.getSetCookie === "function" ? headers.getSetCookie() : [];
+  const fromHeader = headers.get("set-cookie");
+  const cookiesToRead = listed.length > 0 ? listed : fromHeader ? [fromHeader] : [];
+  const match = cookiesToRead.map((item) => /^maakum_visitor=([^;]+)/.exec(item)?.[1]).find(Boolean);
+  if (!match) return;
+  const store = await cookies();
+  store.set(VISITOR_COOKIE, match, {
+    httpOnly: true,
+    sameSite: "lax",
+    path: "/",
+    maxAge: 60 * 60 * 24 * 365,
+  });
+}
+
+async function writeJson(path: string, method: "POST" | "DELETE", body?: Record<string, string>): Promise<WriteResult> {
+  await connection();
+  const base = apiBase();
+  if (!base) return { ok: false, status: "unavailable", fields: {} };
+
+  const headers: Record<string, string> = { accept: "application/json" };
+  if (body) headers["content-type"] = "application/json";
+  const visitor = await visitorHeader();
+  if (visitor) headers.cookie = visitor;
+
+  try {
+    const response = await fetch(`${base}${path}`, {
+      method,
+      headers,
+      body: body ? JSON.stringify(body) : undefined,
+      cache: "no-store",
+    });
+    await rememberVisitor(response.headers);
+    const parsed = await response.json().catch(() => null);
+    const fields = fieldsFrom(parsed);
+    if (!response.ok) return { ok: false, status: response.status, fields };
+    return { ok: true };
+  } catch {
+    return { ok: false, status: "unavailable", fields: {} };
+  }
+}
+
+function fieldsFrom(value: unknown): Record<string, string> {
+  if (!value || typeof value !== "object") return {};
+  const error = (value as { error?: { fields?: unknown } }).error;
+  if (!error?.fields || typeof error.fields !== "object") return {};
+  const fields: Record<string, string> = {};
+  for (const [key, message] of Object.entries(error.fields)) {
+    if (typeof message === "string") fields[key] = message;
+  }
+  return fields;
+}
+
+export async function createMessage(input: {
+  text: string;
+  displayName?: string;
+  countryCode?: string;
+}): Promise<WriteResult> {
+  return writeJson("/messages", "POST", compact(input));
+}
+
+export async function createReply(
+  messageId: string,
+  input: { text: string; displayName?: string; countryCode?: string },
+): Promise<WriteResult> {
+  return writeJson(`/messages/${encodeURIComponent(messageId)}/replies`, "POST", compact(input));
+}
+
+export async function setReaction(id: string, react: boolean): Promise<ReactionResult> {
+  await connection();
+  const base = apiBase();
+  if (!base || !isMessageId(id)) return { ok: false, status: "unavailable" };
+
+  const headers: Record<string, string> = { accept: "application/json", "content-type": "application/json" };
+  const visitor = await visitorHeader();
+  if (visitor) headers.cookie = visitor;
+
+  try {
+    const response = await fetch(`${base}/messages/${id}/reactions`, {
+      method: react ? "POST" : "DELETE",
+      headers,
+      body: "{}",
+      cache: "no-store",
+    });
+    await rememberVisitor(response.headers);
+    const parsed = (await response.json().catch(() => null)) as { reacted?: unknown; reactionCount?: unknown } | null;
+    if (!response.ok || typeof parsed?.reacted !== "boolean" || typeof parsed.reactionCount !== "number") {
+      return { ok: false, status: response.ok ? "unavailable" : response.status };
+    }
+    return { ok: true, reacted: parsed.reacted, reactionCount: parsed.reactionCount };
+  } catch {
+    return { ok: false, status: "unavailable" };
+  }
+}
+
+function compact(input: { text: string; displayName?: string; countryCode?: string }): Record<string, string> {
+  const body: Record<string, string> = { text: input.text };
+  if (input.displayName) body.displayName = input.displayName;
+  if (input.countryCode) body.countryCode = input.countryCode;
+  return body;
 }

@@ -6,6 +6,7 @@ export type Reply = {
   country: string;
   orig: string;
   ago: number;
+  reactionCount: number;
   text: Partial<Record<string, string>>;
   children?: Reply[];
 };
@@ -17,6 +18,7 @@ export type Message = {
   orig: string;
   ago: number;
   replyCount: number;
+  reactionCount: number;
   text: Partial<Record<string, string>>;
   replies: Reply[];
 };
