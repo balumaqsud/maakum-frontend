@@ -67,8 +67,8 @@ function NavLinks({ pathname, stacked = false }: { pathname: string; stacked?: b
       ))}
       {stacked ? (
         <Button href="/write" className="mt-2 gap-2 self-start">
-          <PenIcon />
           <LocaleText k="writeMessage" />
+          <PenIcon />
         </Button>
       ) : null}
     </>
@@ -119,6 +119,7 @@ function HeaderFrame({
             </nav>
           ) : (
             <>
+              <LanguageSwitcher />
               <button
                 type="button"
                 ref={buttonRef}
@@ -130,11 +131,10 @@ function HeaderFrame({
                 <span className="sr-only">{open ? <LocaleText k="closeMenu" /> : <LocaleText k="menu" />}</span>
                 <MenuIcon open={open} />
               </button>
-              <LanguageSwitcher />
               <div className="ms-1 hidden min-[721px]:block">
                 <Button href="/write" className="gap-2">
-                  <PenIcon />
                   <LocaleText k="writeMessage" />
+                  <PenIcon />
                 </Button>
               </div>
             </>
