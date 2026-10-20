@@ -1,8 +1,14 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { LocaleText } from "@/components/shared/locale-text";
 import { Container } from "@/components/ui/container";
 
 export function SiteFooter() {
+  const pathname = usePathname();
+  if (pathname === "/") return null;
+
   return (
     <footer className="mt-20 border-t border-line py-8 text-sm text-ink-soft">
       <Container className="flex flex-col gap-3">

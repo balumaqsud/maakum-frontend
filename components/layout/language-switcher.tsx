@@ -23,15 +23,22 @@ export function LanguageSwitcher() {
   return (
     <button
       type="button"
-      className="inline-flex min-h-11 items-center rounded-full border border-line px-4 font-sans text-sm font-semibold text-ink-soft hover:bg-surface hover:text-ink"
+      className="inline-flex min-h-11 items-center gap-1.5 rounded-full px-2 font-sans text-sm font-semibold text-ink hover:text-olive"
       onClick={toggle}
     >
+      <svg viewBox="0 0 24 24" aria-hidden className="size-4" fill="none" stroke="currentColor" strokeWidth="1.6">
+        <circle cx="12" cy="12" r="9" />
+        <path d="M3 12h18M12 3c2.6 2.8 2.6 15.2 0 18M12 3c-2.6 2.8-2.6 15.2 0 18" />
+      </svg>
       <span className="locale-en" lang="ar">
         العربية
       </span>
       <span className="locale-ar" lang="en">
         English
       </span>
+      <svg viewBox="0 0 24 24" aria-hidden className="size-3.5" fill="none" stroke="currentColor" strokeWidth="2">
+        <path d="M6 9l6 6 6-6" />
+      </svg>
     </button>
   );
 }

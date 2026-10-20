@@ -22,7 +22,35 @@ function current(pathname: string, href: string) {
 }
 
 const linkClass =
-  "inline-flex min-h-11 items-center px-2 font-sans text-[0.95rem] font-medium text-ink-soft hover:text-ink aria-[current=page]:text-ink aria-[current=page]:shadow-[inset_0_-2px_0_var(--color-brass)]";
+  "relative inline-flex min-h-11 items-center px-3 font-sans text-[0.95rem] font-medium text-ink-soft hover:text-ink aria-[current=page]:text-ink aria-[current=page]:after:absolute aria-[current=page]:after:bottom-2 aria-[current=page]:after:left-1/2 aria-[current=page]:after:h-0.5 aria-[current=page]:after:w-5 aria-[current=page]:after:-translate-x-1/2 aria-[current=page]:after:rounded-full aria-[current=page]:after:bg-olive";
+
+function PenIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden className="size-4" fill="none" stroke="currentColor" strokeWidth="1.8">
+      <path d="M4 20h4L18 10l-4-4L4 16v4z" strokeLinejoin="round" />
+      <path d="M13 7l4 4" />
+    </svg>
+  );
+}
+
+function MenuIcon({ open }: { open: boolean }) {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden className="size-5" fill="none" stroke="currentColor" strokeWidth="1.8">
+      {open ? <path d="M6 6l12 12M18 6L6 18" /> : <path d="M4 7h16M4 12h16M4 17h16" />}
+    </svg>
+  );
+}
+
+function Logo() {
+  return (
+    <Link href="/" className="flex flex-col leading-none" aria-label="Ma'akum">
+      <span lang="ar" className="font-arabic text-[1.85rem] text-olive">
+        معكم
+      </span>
+      <span className="text-[0.62rem] font-semibold tracking-[0.22em] text-ink-soft uppercase">Ma&apos;akum</span>
+    </Link>
+  );
+}
 
 function NavLinks({ pathname, stacked = false }: { pathname: string; stacked?: boolean }) {
   return (
@@ -37,9 +65,12 @@ function NavLinks({ pathname, stacked = false }: { pathname: string; stacked?: b
           <LocaleText k={link.key} />
         </Link>
       ))}
-      <Button href="/write" className={stacked ? "mt-2 self-start" : "ms-2"}>
-        <LocaleText k="writeMessage" />
-      </Button>
+      {stacked ? (
+        <Button href="/write" className="mt-2 gap-2 self-start">
+          <PenIcon />
+          <LocaleText k="writeMessage" />
+        </Button>
+      ) : null}
     </>
   );
 }
@@ -62,53 +93,52 @@ function HeaderFrame({
   const hope = pathname === "/hope";
 
   return (
-    <header className="border-b border-line">
-      <Container className="flex flex-wrap items-center justify-between gap-3 py-4 max-[420px]:gap-1">
-        <a
-          href="#main"
-          className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:inset-s-3 focus:z-50 focus:bg-ink focus:px-4 focus:py-2 focus:text-ivory"
-        >
-          <LocaleText k="skip" />
-        </a>
-        <Link href="/" className="flex items-baseline gap-2" aria-label="Ma'akum">
-          <span lang="ar" className="font-arabic text-[1.65rem] leading-none text-olive max-[420px]:text-2xl">
-            معكم
-          </span>
-          <span className="text-[0.82rem] font-semibold tracking-[0.14em] text-ink-soft uppercase max-[420px]:text-[0.66rem] max-[420px]:tracking-[0.08em]">
-            Ma&apos;akum
-          </span>
-        </Link>
+    <header className="border-b border-line/80 bg-ivory">
+      <a
+        href="#main"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:inset-s-3 focus:z-50 focus:bg-ink focus:px-4 focus:py-2 focus:text-ivory"
+      >
+        <LocaleText k="skip" />
+      </a>
+      <Container className="grid grid-cols-[1fr_auto] items-center gap-3 py-3 min-[721px]:grid-cols-[1fr_auto_1fr]">
+        <Logo />
         <span id="site-nav-label" className="sr-only">
           <LocaleText k="navLabel" />
         </span>
-        <div className="flex items-center gap-1">
+        {hope ? <span className="hidden min-[721px]:block" /> : (
+          <nav aria-labelledby="site-nav-label" className="hidden items-center justify-center gap-1 min-[721px]:flex">
+            <NavLinks pathname={pathname} />
+          </nav>
+        )}
+        <div className="flex items-center justify-end gap-1">
           {hope ? (
-            <nav aria-labelledby="site-nav-label" className="flex items-center gap-0.5">
+            <nav aria-labelledby="site-nav-label">
               <Link href="/" className={linkClass}>
                 <LocaleText k="close" />
               </Link>
             </nav>
           ) : (
             <>
-              <nav
-                aria-labelledby="site-nav-label"
-                className="hidden items-center gap-0.5 min-[721px]:flex"
-              >
-                <NavLinks pathname={pathname} />
-              </nav>
               <button
                 type="button"
                 ref={buttonRef}
-                className="inline-flex min-h-11 items-center rounded-full border border-line px-4 font-sans text-sm font-semibold text-ink min-[721px]:hidden"
+                className="inline-flex size-11 items-center justify-center rounded-full text-ink min-[721px]:hidden"
                 aria-expanded={open}
                 aria-controls={menuId}
                 onClick={onToggle}
               >
-                {open ? <LocaleText k="closeMenu" /> : <LocaleText k="menu" />}
+                <span className="sr-only">{open ? <LocaleText k="closeMenu" /> : <LocaleText k="menu" />}</span>
+                <MenuIcon open={open} />
               </button>
+              <LanguageSwitcher />
+              <div className="ms-1 hidden min-[721px]:block">
+                <Button href="/write" className="gap-2">
+                  <PenIcon />
+                  <LocaleText k="writeMessage" />
+                </Button>
+              </div>
             </>
           )}
-          <LanguageSwitcher />
         </div>
       </Container>
       {hope ? null : (
