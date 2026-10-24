@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ma’akum — You are not alone</title>
+<link href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=Inter:wght@400;500;600&family=Newsreader:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{color-scheme:light;--green:#124233;--g2:#0d3326;--gold:#a8782b;--ink:#34413a;--muted:#7b7c74;--serif:'Newsreader',Georgia,serif;--sans:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;--ar:'Aref Ruqaa','Amiri',serif;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*,*::before,*::after{box-sizing:inherit;margin:0;padding:0}
+html{background:#f4ecd9;height:100%}
+body{font-family:var(--serif);color:var(--ink);background:linear-gradient(180deg,#f8f2e4,#f6efdf 55%,#faf6ea);overflow-x:hidden;position:relative}
+a{color:inherit;text-decoration:none}
+.in{width:100%;max-width:1190px;margin:0 auto;padding:0 24px}
+.sl,.sr{position:absolute;pointer-events:none;display:none}
+@media(min-width:1300px){.sl,.sr{display:block}}
+.sl{left:0;top:0;bottom:0;width:58px;background:repeating-linear-gradient(45deg,#efe4cd 0 2px,#f5eddb 2px 14px);border-right:1px solid #e6d9bd}
+.sr{right:0;top:0;height:560px;width:min(130px,calc((100vw - 1142px)/2));background:repeating-linear-gradient(180deg,transparent 0 46px,rgba(150,130,95,.22) 46px 48px),linear-gradient(90deg,#f1e8d3,#e3d7bc 45%,#d2c4a4);clip-path:polygon(45% 0,62% 4%,38% 9%,58% 16%,32% 24%,52% 31%,26% 40%,48% 48%,22% 57%,42% 66%,16% 76%,38% 86%,20% 94%,36% 100%,100% 100%,100% 0)}
+@media(min-width:1150px){.sr{display:block}}
+header{position:relative;z-index:5;background:rgba(251,247,236,.92);border-bottom:1px solid #eadfc6}
+header .in{display:flex;align-items:center;height:76px}
+.logo{display:flex;flex-direction:column;line-height:1}
+.logo b{font-family:var(--ar);font-size:44px;font-weight:700;color:var(--g2);line-height:1.15;padding-bottom:4px}
+.logo small{font-family:var(--sans);font-size:11px;letter-spacing:.2em;color:var(--g2);border-left:1.5px solid var(--g2);padding-left:3px;margin-top:4px}
+nav{display:flex;gap:34px;font-family:var(--sans);font-size:13px;color:var(--g2);margin-left:140px;height:100%}
+nav a{display:flex;align-items:center;border-bottom:2px solid transparent;padding-top:2px}
+nav a.on{border-color:var(--green)}
+.hr{margin-left:auto;display:flex;align-items:center;gap:22px;font-family:var(--sans);font-size:12px;color:var(--g2)}
+.lang{display:flex;align-items:center;gap:8px}
+.btn{display:inline-flex;align-items:center;gap:10px;font-family:var(--sans);font-size:14px;font-weight:500;border-radius:999px;white-space:nowrap;height:44px;padding:0 28px}
+.dark{background:var(--green);color:#fff;box-shadow:0 4px 10px rgba(18,66,51,.2)}
+.sm{height:40px;padding:0 24px}
+.lt{border:1px solid #cdbf9f;color:var(--g2);background:rgba(255,255,255,.35)}
+.hero .in{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,640px);gap:0 24px;align-items:start;padding-top:46px}
+.eb{font-family:var(--sans);font-size:11px;letter-spacing:.3em;color:var(--gold);font-weight:500}
+h1{font-weight:500;font-size:clamp(46px,6.4vw,70px);line-height:.98;color:var(--g2);margin:20px 0 22px;letter-spacing:-.01em}
+.lead{font-size:20px;line-height:1.35;color:#3d4a43;max-width:380px}
+.ctas{display:flex;flex-wrap:wrap;gap:18px;margin-top:30px}
+.stats{display:flex;flex-wrap:wrap;gap:16px 0;margin-top:34px;font-family:var(--sans)}
+.st{display:flex;align-items:center;gap:12px;padding-right:32px}
+.st+.st{padding-left:32px;border-left:1px solid #dccfb2}
+.st svg{stroke:var(--g2);fill:none;stroke-width:1.4;flex:none}
+.st b{display:block;font-size:16px;font-weight:600;color:var(--g2)}
+.st span{font-size:11px;color:var(--muted)}
+.vis{position:relative;width:100%;aspect-ratio:640/470;container-type:inline-size;margin-top:-46px}
+.arch{position:absolute;left:0;top:4.7%;width:49.5%;height:93%;overflow:visible;filter:drop-shadow(0 8px 14px rgba(90,70,30,.22))}
+.orn{position:absolute;left:57.7%;top:0;width:2px;height:27%;background:#b08d4a}
+.orn svg{position:absolute;left:-14px;bottom:-24px;width:30px}
+.ar{position:absolute;left:58.2%;top:40.5%;font-family:var(--ar);font-size:6.9cqw;color:var(--gold);line-height:1;white-space:nowrap}
+.are{position:absolute;left:58.2%;top:55%;font-size:2.7cqw;color:#6f6a58;white-space:nowrap}
+.arl{position:absolute;left:58.2%;top:63.5%;width:7%;height:1px;background:var(--gold)}
+.msgs{position:relative;z-index:3;padding-top:20px}
+.mh{display:flex;align-items:flex-start;gap:20px}
+.mh h2{font-weight:500;font-size:27px;color:var(--g2);line-height:1.2}
+.mh p{font-size:15px;color:#6a6b5f;margin-top:6px}
+.view{margin-left:auto;font-family:var(--sans);font-size:11.5px;font-weight:500;color:var(--g2);display:flex;gap:8px;align-items:center;margin-top:8px;white-space:nowrap}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:28px;align-items:start;margin-top:26px}
+.card{background:#fcf9f1;border-radius:12px;padding:16px 22px 18px;box-shadow:0 2px 10px rgba(110,90,50,.1);border:1px solid #f0e7d2}
+.who{display:flex;align-items:center;gap:8px;font-family:var(--sans);font-size:12px}
+.who b{font-weight:600;color:#26332d;margin-left:4px}.who i{font-style:normal;color:var(--muted)}.who em{margin-left:auto;font-style:normal;color:#9a9a90;font-size:11px;white-space:nowrap}
+.flag{width:25px;height:25px;border-radius:50%;overflow:hidden;flex:none}
+.card p{font-size:18px;line-height:1.3;margin:16px 0 26px}
+.act{display:flex;align-items:center;gap:12px;font-family:var(--sans);font-size:13px;font-weight:500;color:#26332d}
+.act svg{fill:none;stroke:#e0344a;stroke-width:1.8}
+.act s{width:0;height:0;border-left:4px solid #d4cdb8;border-top:4px solid transparent;border-bottom:4px solid transparent;margin:0 10px 0 4px}
+.foot{position:relative;z-index:1;margin-top:-60px;min-height:214px}
+.foot>svg{position:absolute;display:block}
+.wave{inset:0;width:100%;height:100%}
+.sky{right:0;bottom:0;width:min(1150px,100%);height:auto;aspect-ratio:900/190}
+.lat{left:0;bottom:0;width:230px;height:170px}
+.ft{position:relative;z-index:2;display:flex;align-items:center;gap:30px;padding-top:100px;padding-bottom:42px;color:#f3ead2;font-size:23px;line-height:1.28}
+.ft svg{flex:none}
+.ft u{display:block;width:50px;height:1px;background:#c79a49;margin-top:16px}
+@media(max-width:900px){
+ nav{margin-left:40px;gap:22px}
+ .hero .in{grid-template-columns:1fr;padding-top:36px}
+ .vis{max-width:520px;margin:30px auto 0}
+ .lead{max-width:460px}
+}
+.burger,.vtop{display:none}
+@media(max-width:640px){
+ .in{padding:0 20px}
+ header .in{height:92px}
+ .logo b{font-size:46px}
+ .hr{gap:18px}
+ .hr .btn{display:none}
+ .lang{gap:10px}
+ .burger{display:flex;background:none;border:0;cursor:pointer;padding:6px}
+ nav{display:none;position:absolute;left:0;right:0;top:92px;margin:0;height:48px;justify-content:center;gap:34px;background:rgba(251,247,236,.98);border-bottom:1px solid #eadfc6}
+ header.open nav{display:flex}
+ .hero{position:relative}
+ .hero::before{content:"";position:absolute;right:0;top:0;width:40px;height:150px;background:radial-gradient(circle,transparent 13px,rgba(199,154,73,.3) 13px 14px,transparent 14px) 0 0/26px 26px;-webkit-mask:linear-gradient(#000,transparent);mask:linear-gradient(#000,transparent);pointer-events:none}
+ .hero .in{padding-top:32px}
+ .eb{font-size:11px;letter-spacing:.25em}
+ h1{font-size:clamp(46px,14.2vw,60px);margin:16px 0 18px}
+ .lead{font-size:17px;max-width:none}
+ .ctas{flex-wrap:nowrap;gap:12px;margin-top:24px}
+ .ctas .btn{flex:1 1 auto;justify-content:center;padding:0 12px;font-size:14px;gap:8px}
+ .stats{flex-wrap:nowrap;justify-content:space-between;margin-top:28px;gap:0}
+ .st{padding:0 10px 0 0;gap:10px}.st+.st{padding:0 10px 0 14px}.st:last-child{padding-right:0}
+ .st svg{width:24px;height:24px}.st b{font-size:15px}.st span{font-size:10.5px}
+ .vis{aspect-ratio:358/290;max-width:none;margin:30px 0 0}
+ .arch{left:0;top:6%;width:52%;height:auto;aspect-ratio:317/437}
+ .vtop{display:block;position:absolute;left:66%;top:0;width:28%;overflow:visible}
+ .orn{display:none}
+ .ar{left:57%;top:44%;font-size:8.4cqw}
+ .are{left:57.5%;top:58%;font-size:3.5cqw}
+ .arl{left:57.5%;top:69%;width:9%}
+ .msgs{padding-top:34px;background:linear-gradient(rgba(252,249,240,.7),rgba(252,249,240,.7)) top/100% calc(100% - 30px) no-repeat}
+ .mh{flex-wrap:nowrap;gap:14px;align-items:flex-start}
+ .mh h2{font-size:23px;line-height:1.15}
+ .mh p{font-size:15px;max-width:260px;line-height:1.35}
+ .view{margin:4px 0 0 auto;width:auto;font-size:13px}
+ .vm{display:none}
+ .cards{margin-top:20px}
+ .foot{margin-top:-30px}
+ .ft{font-size:19px;gap:18px;padding-top:80px}.ft svg{width:48px;height:48px}
+ .sky{height:150px}.lat{width:150px}
+}
+</style>
+</head>
+<body>
+<div class="sl"></div><div class="sr"></div>
+<header><div class="in">
+ <a class="logo" href="#"><b>معكم</b><small>MA’AKUM</small></a>
+ <nav><a class="on" href="#">Home</a><a href="#">Messages</a><a href="#">About</a></nav>
+ <div class="hr">
+  <div class="lang"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2b3a33" stroke-width="1.5"><circle cx="12" cy="12" r="9.5"/><path d="M2.5 12h19M12 2.5c3 3 3 16 0 19M12 2.5c-3 3-3 16 0 19"/></svg><span>العربية</span><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="#2b3a33" stroke-width="1.3"><path d="M2 3.5l3 3 3-3"/></svg></div>
+  <a class="btn dark sm" href="#">Write a message <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M4 20l4-1 11-11-3-3L5 16zM14 6l3 3"/></svg></a>
+  <button class="burger" aria-label="Menu" aria-expanded="false"><svg width="26" height="26" viewBox="0 0 26 26" fill="none" stroke="#0d3326" stroke-width="2" stroke-linecap="round"><path d="M3 7h20M3 13h20M3 19h20"/></svg></button>
+ </div>
+</div></header>
+
+<section class="hero"><div class="in">
+ <div>
+  <div class="eb">MA’AKUM &nbsp;·&nbsp; WITH YOU</div>
+  <h1>You are not<br>alone.</h1>
+  <p class="lead">Kind words from people all over the world, written for people in Gaza. Read them, answer them, or leave a few of your own.</p>
+  <div class="ctas"><a class="btn dark" href="#">Read messages <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M4 12h16M14 6l6 6-6 6"/></svg></a><a class="btn lt" href="#">Write a message</a></div>
+  <div class="stats">
+   <div class="st"><svg width="26" height="26" viewBox="0 0 24 24"><path d="M4 5h16v11H11l-4 4v-4H4z"/></svg><div><b>12,480</b><span>messages</span></div></div>
+   <div class="st"><svg width="26" height="26" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/></svg><div><b>94</b><span>countries</span></div></div>
+   <div class="st"><svg width="28" height="26" viewBox="0 0 28 24"><circle cx="10" cy="8" r="3.5"/><path d="M3 20c0-4 3-6 7-6s7 2 7 6z"/><circle cx="20" cy="7" r="2.6"/><path d="M19 13c4 0 6 2 6 5"/></svg><div><b>3,206</b><span>replies</span></div></div>
+  </div>
+ </div>
+
+ <div class="vis">
+  <svg class="arch" viewBox="0 0 317 437" aria-hidden="true">
+   <defs>
+    <clipPath id="ac"><path id="ap" d="M0 437V195C0 150 25 118 55 106C70 70 120 36 173 0C205 32 262 55 304 118C312 128 317 138 317 150V437Z"/></clipPath>
+    <linearGradient id="sk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5fa1d6"/><stop offset=".35" stop-color="#a9cfe6"/><stop offset=".62" stop-color="#f8dca6"/><stop offset=".8" stop-color="#f1a85f"/><stop offset="1" stop-color="#d98a4c"/></linearGradient>
+    <radialGradient id="sn" cx=".25" cy=".72" r=".5"><stop offset="0" stop-color="#fff3c8" stop-opacity=".95"/><stop offset="1" stop-color="#fff3c8" stop-opacity="0"/></radialGradient>
+    <path id="lf" d="M0 0C14-9 40-8 52 0 40 9 14 8 0 0z"/>
+   </defs>
+   <g clip-path="url(#ac)">
+    <rect width="317" height="437" fill="url(#sk)"/><rect width="317" height="437" fill="url(#sn)"/>
+    <g fill="#fff"><ellipse cx="170" cy="130" rx="60" ry="11" opacity=".55"/><ellipse cx="100" cy="190" rx="66" ry="9" opacity=".5"/><ellipse cx="215" cy="215" rx="38" ry="8" opacity=".6"/></g>
+    <rect y="330" width="290" height="110" fill="#c9b79a"/>
+    <g fill="#d8c8a8"><rect x="0" y="318" width="40" height="30"/><rect x="50" y="326" width="50" height="26"/><rect x="170" y="320" width="60" height="30"/><rect x="40" y="298" width="28" height="30"/></g>
+    <g fill="#b9a584"><rect y="352" width="80" height="90"/><rect x="85" y="360" width="80" height="80"/><rect x="170" y="352" width="100" height="90"/></g>
+    <g fill="#e6d7b5"><rect x="82" y="318" width="104" height="38"/><rect x="90" y="306" width="88" height="14"/></g>
+    <path d="M102 306a32 32 0 0 1 64 0z" fill="#1d3a66"/><rect x="133" y="262" width="3" height="12" fill="#c8a24a"/>
+    <rect x="176" y="296" width="30" height="30" fill="#ddcdab"/>
+    <rect x="196" y="236" width="13" height="80" fill="#e0d0ae"/><rect x="193" y="230" width="19" height="8" fill="#cdb98f"/><path d="M197 230v-10l5.500-10 5.500 10v10z" fill="#d6c39a"/><rect x="201.500" y="196" width="1.500" height="14" fill="#bba26e"/>
+    <g fill="#a68f68"><rect x="10" y="372" width="38" height="8"/><rect x="60" y="380" width="50" height="8"/><rect x="120" y="374" width="60" height="8"/><rect x="190" y="380" width="60" height="8"/><rect x="30" y="398" width="70" height="8"/><rect x="140" y="400" width="90" height="8"/></g>
+    <g fill="#7c6b4c" opacity=".55"><circle cx="30" cy="350" r="6"/><circle cx="80" cy="340" r="5"/><circle cx="160" cy="346" r="6"/><circle cx="250" cy="344" r="7"/></g>
+    <rect x="275" y="182" width="42" height="260" fill="#e0d3b6"/>
+    <g stroke="#c4b595" stroke-width="1.500"><path d="M275 222h42M275 262h42M275 302h42M275 342h42M275 382h42"/><path d="M296 182v40M284 222v40M303 262v40M288 302v40M306 342v40"/></g>
+   </g>
+   <use href="#ap" fill="none" stroke="#c9a24f" stroke-width="2"/>
+   <path d="M-6 222C20 190 60 140 150 70" fill="none" stroke="#5b4a30" stroke-width="1.800"/>
+   <g fill="#4d6a3a"><use href="#lf" transform="translate(4 214) rotate(-62) scale(1.1)"/><use href="#lf" transform="translate(22 186) rotate(18) scale(1.2)" fill="#3e5a30"/><use href="#lf" transform="translate(36 158) rotate(-50) scale(1.3)" fill="#5a7a45"/><use href="#lf" transform="translate(56 132) rotate(20) scale(1.3)"/><use href="#lf" transform="translate(76 108) rotate(-42) scale(1.3)" fill="#3e5a30"/><use href="#lf" transform="translate(100 92) rotate(8) scale(1.2)" fill="#5a7a45"/><use href="#lf" transform="translate(124 76) rotate(-30) scale(1.1)"/><use href="#lf" transform="translate(142 66) rotate(-4) scale(1)" fill="#3e5a30"/></g>
+   <path d="M170 440C250 410 340 360 440 318" fill="none" stroke="#5b4a30" stroke-width="2"/>
+   <g fill="#4d6a3a"><use href="#lf" transform="translate(190 432) rotate(-48) scale(1.5)" fill="#3e5a30"/><use href="#lf" transform="translate(210 426) rotate(12) scale(1.5)"/><use href="#lf" transform="translate(244 408) rotate(-52) scale(1.5)" fill="#5a7a45"/><use href="#lf" transform="translate(268 398) rotate(10) scale(1.5)" fill="#3e5a30"/><use href="#lf" transform="translate(300 380) rotate(-55) scale(1.5)"/><use href="#lf" transform="translate(326 366) rotate(2) scale(1.5)" fill="#5a7a45"/><use href="#lf" transform="translate(360 346) rotate(-52) scale(1.4)" fill="#3e5a30"/><use href="#lf" transform="translate(388 334) rotate(-4) scale(1.4)"/><use href="#lf" transform="translate(420 322) rotate(-30) scale(1.3)" fill="#5a7a45"/></g>
+  </svg>
+  <svg class="vtop" viewBox="0 0 90 56" aria-hidden="true"><path d="M2 52C30 40 60 26 88 8" fill="none" stroke="#8a9374" stroke-width="1.5"/><g fill="#8b9a72"><use href="#lf" transform="translate(12 46) rotate(-48) scale(.8)"/><use href="#lf" transform="translate(26 42) rotate(-6) scale(.8)"/><use href="#lf" transform="translate(40 34) rotate(-52) scale(.8)"/><use href="#lf" transform="translate(54 28) rotate(-10) scale(.8)"/><use href="#lf" transform="translate(68 18) rotate(-50) scale(.7)"/><use href="#lf" transform="translate(76 14) rotate(-14) scale(.7)"/></g></svg>
+  <div class="orn"><svg viewBox="0 0 30 30"><g stroke="#b08d4a" stroke-width="1.500"><path d="M15 2l3 5 6-1-1 6 5 3-5 3 1 6-6-1-3 5-3-5-6 1 1-6-5-3 5-3-1-6 6 1z" fill="#fbf3dc"/><circle cx="15" cy="15" r="5" fill="none"/></g></svg></div>
+  <div class="ar">لستم وحدكم</div>
+  <div class="are">“You are not alone.”</div><div class="arl"></div>
+ </div>
+</div></section>
+
+<section class="msgs"><div class="in">
+ <div class="mh">
+  <svg width="34" height="34" viewBox="0 0 30 30" style="flex:none"><g fill="none" stroke="#b08d4a" stroke-width="1.300"><path d="M15 2l3 5 6-1-1 6 5 3-5 3 1 6-6-1-3 5-3-5-6 1 1-6-5-3 5-3-1-6 6 1z"/><circle cx="15" cy="15" r="5"/></g></svg>
+  <div><h2>Messages from around the world</h2><p>Words of support, prayers, and hope for the people in Gaza.</p></div>
+  <a class="view" href="#">View all <span class="vm">messages</span> <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#124233" stroke-width="2"><path d="M4 12h16M14 6l6 6-6 6"/></svg></a>
+ </div>
+ <div class="cards">
+  <article class="card">
+   <div class="who"><span class="flag"><svg viewBox="0 0 25 25"><rect width="25" height="25" fill="#e0b21b"/><rect width="9" height="25" fill="#1b2f8f"/><rect x="16" width="9" height="25" fill="#c8202f"/></svg></span><b>Madina</b><i>·</i><i>Uzbekistan</i><em>2 hours ago</em></div>
+   <p>We have not forgotten you. I hope you and your family are safe.</p>
+   <div class="act"><svg width="20" height="20" viewBox="0 0 24 24"><path d="M12 21C5 15 3 11.500 3 8.500A4.500 4.500 0 0 1 12 6a4.500 4.500 0 0 1 9 2.500C21 11.500 19 15 12 21z"/></svg><span>48</span><s></s><span>Reply</span></div>
+  </article>
+  <article class="card">
+   <div class="who"><span class="flag"><svg viewBox="0 0 25 25"><rect width="25" height="9" fill="#111"/><rect y="8" width="25" height="9" fill="#fff"/><rect y="16" width="25" height="9" fill="#1f8a4c"/><path d="M0 0l12 12.500L0 25z" fill="#d6262e"/></svg></span><b>Amal</b><i>·</i><i>Gaza, Palestine</i><em>2 hours ago</em></div>
+   <p>Thank you for remembering us. Your words mean more than you know.</p>
+   <div class="act"><svg width="20" height="20" viewBox="0 0 24 24"><path d="M12 21C5 15 3 11.500 3 8.500A4.500 4.500 0 0 1 12 6a4.500 4.500 0 0 1 9 2.500C21 11.500 19 15 12 21z"/></svg><span>31</span><s></s><span>Reply</span></div>
+  </article>
+  <article class="card">
+   <div class="who"><span class="flag"><svg viewBox="0 0 25 25"><rect width="25" height="25" fill="#c8202f"/><rect y="6" width="25" height="13" fill="#f2c012"/></svg></span><b>Daniel</b><i>·</i><i>Spain</i><em>5 hours ago</em></div>
+   <p style="margin-bottom:16px">I thought of you this morning over my coffee. I want you to know that there are people on the other side of the world who carry you in their hearts.</p>
+   <div class="act"><svg width="20" height="20" viewBox="0 0 24 24"><path d="M12 21C5 15 3 11.500 3 8.500A4.500 4.500 0 0 1 12 6a4.500 4.500 0 0 1 9 2.500C21 11.500 19 15 12 21z"/></svg><span>27</span><s></s><span>Reply</span></div>
+  </article>
+ </div>
+</div></section>
+
+<footer class="foot">
+ <svg class="wave" viewBox="0 0 1440 214" preserveAspectRatio="none" aria-hidden="true"><defs><linearGradient id="gw" x1="0" x2="1"><stop offset="0" stop-color="#0e3a2b"/><stop offset=".6" stop-color="#14442f"/><stop offset="1" stop-color="#1b4a38"/></linearGradient></defs><path d="M0 0C60 10 130 44 260 52C500 66 800 48 1100 56C1250 60 1350 58 1440 50V214H0z" fill="url(#gw)"/></svg>
+ <svg class="lat" viewBox="0 0 230 170" aria-hidden="true"><defs><pattern id="pt" width="40" height="40" patternUnits="userSpaceOnUse"><circle cx="20" cy="20" r="20" fill="none" stroke="#c79a49" stroke-width="1"/><circle cx="0" cy="0" r="20" fill="none" stroke="#c79a49" stroke-width="1"/><circle cx="40" cy="40" r="20" fill="none" stroke="#c79a49" stroke-width="1"/><circle cx="40" cy="0" r="20" fill="none" stroke="#c79a49" stroke-width="1"/><circle cx="0" cy="40" r="20" fill="none" stroke="#c79a49" stroke-width="1"/></pattern><linearGradient id="lm" x1="0" x2="1" y1="1" y2="0"><stop offset="0" stop-color="#fff"/><stop offset="1" stop-color="#000"/></linearGradient><mask id="mk"><rect width="230" height="170" fill="url(#lm)"/></mask></defs><rect width="230" height="170" fill="url(#pt)" mask="url(#mk)" opacity=".55"/></svg>
+ <svg class="sky" viewBox="0 0 900 190" preserveAspectRatio="xMaxYMax meet" aria-hidden="true"><defs>
+  <radialGradient id="sg" cx="728" cy="118" r="200" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#ffc766" stop-opacity=".95"/><stop offset=".4" stop-color="#e8934a" stop-opacity=".55"/><stop offset="1" stop-color="#e8934a" stop-opacity="0"/></radialGradient>
+  <linearGradient id="fd" x1="0" x2="1"><stop offset="0" stop-color="#000"/><stop offset=".45" stop-color="#fff"/></linearGradient><mask id="fm"><rect width="900" height="190" fill="url(#fd)"/></mask></defs>
+  <rect width="900" height="190" fill="url(#sg)" mask="url(#fm)"/>
+  <g mask="url(#fm)" fill="#254a3b"><rect x="0" y="130" width="40" height="60"/><rect x="50" y="118" width="30" height="72"/><rect x="95" y="136" width="55" height="54"/><rect x="160" y="122" width="26" height="68"/><rect x="200" y="134" width="60" height="56"/><rect x="270" y="112" width="30" height="78"/><rect x="310" y="130" width="50" height="60"/><rect x="370" y="120" width="26" height="70"/><rect x="405" y="128" width="55" height="62"/><rect x="470" y="108" width="22" height="82"/><rect x="500" y="124" width="45" height="66"/><rect x="560" y="140" width="130" height="50" fill="#2a4f40"/></g>
+  <g fill="#2a4f40"><rect x="600" y="104" width="12" height="86"/><path d="M599 104h14l-7-16z"/></g>
+  <rect x="610" y="124" width="190" height="66" fill="#3a5a47"/><rect x="540" y="138" width="80" height="52" fill="#34503f"/>
+  <rect x="530" y="150" width="230" height="40" fill="#2d4a3b"/>
+  <rect x="640" y="104" width="86" height="40" fill="#cdbf94"/><path d="M646 104a37 37 0 0 1 74 0z" fill="#dfaa35"/><rect x="682" y="62" width="3" height="14" fill="#e6c867"/>
+  <rect x="768" y="46" width="14" height="144" fill="#d9cba3"/><path d="M766 46h18l-9-22z" fill="#bba97c"/><rect x="765" y="62" width="20" height="5" fill="#c0ad7e"/><rect x="765" y="90" width="20" height="4" fill="#c0ad7e"/>
+  <circle cx="835" cy="120" r="16" fill="#ffd68a"/>
+  <g fill="#3f5b2f"><path d="M860 108c18-16 40-16 48-2-20 8-34 8-48 2z"/><path d="M850 150c14-22 38-28 58-16-18 14-38 20-58 16z" fill="#4a6a36"/><path d="M880 80c6-18 16-24 28-18-5 14-16 22-28 18z"/><path d="M870 176c14-14 30-16 42-8-14 10-28 12-42 8z" fill="#4a6a36"/></g>
+ </svg>
+ <div class="in"><div class="ft">
+  <svg width="64" height="64" viewBox="0 0 64 64"><path d="M32 3l24 14v30L32 61 8 47V17z" fill="#143a2d" stroke="#c79a49" stroke-width="1.400"/><g fill="none" stroke="#e2c47a" stroke-width="1.600"><path d="M18 22c5-2 10-1 14 2 4-3 9-4 14-2v22c-5-2-10-1-14 2-4-3-9-4-14-2z"/><path d="M32 24v22"/></g></svg>
+  <div>Across borders and distances,<br>kindness still reaches you.<u></u></div>
+ </div></div>
+</footer>
+<script>document.querySelector(".burger").addEventListener("click",function(){var h=document.querySelector("header");var o=h.classList.toggle("open");this.setAttribute("aria-expanded",o)});</script>
+</body>
+</html>

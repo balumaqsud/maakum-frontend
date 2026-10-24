@@ -21,14 +21,10 @@ export function LanguageSwitcher() {
   }
 
   return (
-    <button
-      type="button"
-      className="inline-flex min-h-11 items-center gap-1.5 rounded-full px-2 font-sans text-sm font-semibold text-ink hover:text-olive"
-      onClick={toggle}
-    >
-      <svg viewBox="0 0 24 24" aria-hidden className="size-4" fill="none" stroke="currentColor" strokeWidth="1.6">
-        <circle cx="12" cy="12" r="9" />
-        <path d="M3 12h18M12 3c2.6 2.8 2.6 15.2 0 18M12 3c-2.6 2.8-2.6 15.2 0 18" />
+    <button type="button" className="hm-lang" onClick={toggle}>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2b3a33" strokeWidth="1.5" aria-hidden>
+        <circle cx="12" cy="12" r="9.5" />
+        <path d="M2.5 12h19M12 2.5c3 3 3 16 0 19M12 2.5c-3 3-3 16 0 19" />
       </svg>
       <span className="locale-en" lang="ar">
         العربية
@@ -36,8 +32,8 @@ export function LanguageSwitcher() {
       <span className="locale-ar" lang="en">
         English
       </span>
-      <svg viewBox="0 0 24 24" aria-hidden className="size-3.5" fill="none" stroke="currentColor" strokeWidth="2">
-        <path d="M6 9l6 6 6-6" />
+      <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="#2b3a33" strokeWidth="1.3" aria-hidden>
+        <path d="M2 3.5l3 3 3-3" />
       </svg>
     </button>
   );

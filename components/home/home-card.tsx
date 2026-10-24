@@ -28,7 +28,7 @@ export function HomeCard({ message }: { message: Message }) {
   const mark = flag(message.country);
 
   return (
-    <article className="flex h-full min-w-0 flex-col rounded-[20px] border border-line bg-white p-5 shadow-[0_18px_40px_-32px_rgb(23_41_35/0.45)]">
+    <article className="flex h-full min-w-0 flex-col rounded-2xl border border-[#E7DDCB] bg-[#FFFDF8] p-5">
       <div className="flex items-start gap-2 text-sm">
         {mark ? (
           <span aria-hidden className="text-base leading-none">
@@ -51,13 +51,13 @@ export function HomeCard({ message }: { message: Message }) {
           <Both en={time.en} ar={time.ar} />
         </span>
       </div>
-      <p className="quote mt-4 line-clamp-4 flex-1 text-[1.05rem] text-ink" lang={message.orig || undefined}>
+      <p className="quote mt-4 flex-1 text-[1.05rem] text-ink" lang={message.orig || undefined}>
         {text}
       </p>
       <div className="mt-4 flex items-center gap-4 text-sm text-ink-soft">
         <span className="inline-flex min-h-11 items-center gap-1.5">
-          <svg viewBox="0 0 24 24" aria-hidden className="size-4 text-danger" fill="currentColor">
-            <path d="M12 20s-7-4.4-7-9a4 4 0 0 1 7-2 4 4 0 0 1 7 2c0 4.6-7 9-7 9z" />
+          <svg viewBox="0 0 24 24" aria-hidden className="size-4 text-[#C47A7A]" fill="none" stroke="currentColor" strokeWidth="1.6">
+            <path d="M12 19s-6.5-4.1-6.5-8.2a3.4 3.4 0 0 1 6-2.2 3.4 3.4 0 0 1 6 2.2C18.5 14.9 12 19 12 19z" />
           </svg>
           {message.reactionCount}
         </span>

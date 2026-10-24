@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 import type { Metadata } from "next";
-import { Noto_Naskh_Arabic, Noto_Sans_Arabic, Source_Sans_3, Source_Serif_4 } from "next/font/google";
+import { Aref_Ruqaa, Inter, Newsreader, Noto_Naskh_Arabic, Noto_Sans_Arabic, Source_Sans_3, Source_Serif_4 } from "next/font/google";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader, SiteHeaderFallback } from "@/components/layout/site-header";
 import { Container } from "@/components/ui/container";
@@ -38,6 +38,27 @@ const notoSansArabic = Noto_Sans_Arabic({
   display: "swap",
 });
 
+const newsreader = Newsreader({
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  variable: "--font-newsreader",
+  display: "swap",
+});
+
+const inter = Inter({
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  variable: "--font-inter",
+  display: "swap",
+});
+
+const aref = Aref_Ruqaa({
+  subsets: ["arabic", "latin"],
+  weight: ["400", "700"],
+  variable: "--font-aref",
+  display: "swap",
+});
+
 export const metadata: Metadata = {
   metadataBase: new URL(siteOrigin()),
   title: {
@@ -67,7 +88,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="en"
       dir="ltr"
       suppressHydrationWarning
-      className={`${sourceSerif.variable} ${sourceSans.variable} ${naskh.variable} ${notoSansArabic.variable} h-full antialiased`}
+      className={`${sourceSerif.variable} ${sourceSans.variable} ${naskh.variable} ${notoSansArabic.variable} ${newsreader.variable} ${inter.variable} ${aref.variable} h-full antialiased`}
     >
       <head>
         <script dangerouslySetInnerHTML={{ __html: langBootScript }} />

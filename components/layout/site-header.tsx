@@ -5,8 +5,6 @@ import { usePathname } from "next/navigation";
 import { useEffect, useId, useRef, useState } from "react";
 import { LanguageSwitcher } from "@/components/layout/language-switcher";
 import { LocaleText } from "@/components/shared/locale-text";
-import { Button } from "@/components/ui/button";
-import { Container } from "@/components/ui/container";
 import { documentTitle, type ChromeKey } from "@/lib/i18n";
 
 const links: { href: string; key: ChromeKey }[] = [
@@ -21,57 +19,30 @@ function current(pathname: string, href: string) {
   return pathname === href;
 }
 
-const linkClass =
-  "relative inline-flex min-h-11 items-center px-3 font-sans text-[0.95rem] font-medium text-ink-soft hover:text-ink aria-[current=page]:text-ink aria-[current=page]:after:absolute aria-[current=page]:after:bottom-2 aria-[current=page]:after:left-1/2 aria-[current=page]:after:h-0.5 aria-[current=page]:after:w-5 aria-[current=page]:after:-translate-x-1/2 aria-[current=page]:after:rounded-full aria-[current=page]:after:bg-olive";
-
 function PenIcon() {
   return (
-    <svg viewBox="0 0 24 24" aria-hidden className="size-4" fill="none" stroke="currentColor" strokeWidth="1.8">
-      <path d="M4 20h4L18 10l-4-4L4 16v4z" strokeLinejoin="round" />
-      <path d="M13 7l4 4" />
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2" aria-hidden>
+      <path d="M4 20l4-1 11-11-3-3L5 16zM14 6l3 3" />
     </svg>
   );
 }
 
-function MenuIcon({ open }: { open: boolean }) {
+function MenuIcon() {
   return (
-    <svg viewBox="0 0 24 24" aria-hidden className="size-5" fill="none" stroke="currentColor" strokeWidth="1.8">
-      {open ? <path d="M6 6l12 12M18 6L6 18" /> : <path d="M4 7h16M4 12h16M4 17h16" />}
+    <svg width="26" height="26" viewBox="0 0 26 26" fill="none" stroke="#0d3326" strokeWidth="2" strokeLinecap="round" aria-hidden>
+      <path d="M3 7h20M3 13h20M3 19h20" />
     </svg>
   );
 }
 
 function Logo() {
   return (
-    <Link href="/" className="flex flex-col leading-none" aria-label="Ma'akum">
-      <span lang="ar" className="font-arabic text-[1.85rem] text-olive">
+    <Link href="/" className="hm-logo" aria-label="Ma'akum">
+      <span className="hm-logo-ar" lang="ar">
         معكم
       </span>
-      <span className="text-[0.62rem] font-semibold tracking-[0.22em] text-ink-soft uppercase">Ma&apos;akum</span>
+      <span className="hm-logo-en">MA’AKUM</span>
     </Link>
-  );
-}
-
-function NavLinks({ pathname, stacked = false }: { pathname: string; stacked?: boolean }) {
-  return (
-    <>
-      {links.map((link) => (
-        <Link
-          key={link.href}
-          href={link.href}
-          aria-current={current(pathname, link.href) ? "page" : undefined}
-          className={stacked ? `${linkClass} w-full` : linkClass}
-        >
-          <LocaleText k={link.key} />
-        </Link>
-      ))}
-      {stacked ? (
-        <Button href="/write" className="mt-2 gap-2 self-start">
-          <LocaleText k="writeMessage" />
-          <PenIcon />
-        </Button>
-      ) : null}
-    </>
   );
 }
 
@@ -93,67 +64,56 @@ function HeaderFrame({
   const hope = pathname === "/hope";
 
   return (
-    <header className="border-b border-line/80 bg-ivory">
+    <header className={`site-head home-face${open ? " is-open" : ""}`}>
       <a
         href="#main"
         className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:inset-s-3 focus:z-50 focus:bg-ink focus:px-4 focus:py-2 focus:text-ivory"
       >
         <LocaleText k="skip" />
       </a>
-      <Container className="grid grid-cols-[1fr_auto] items-center gap-3 py-3 min-[721px]:grid-cols-[1fr_auto_1fr]">
+      <div className="hm-in">
         <Logo />
         <span id="site-nav-label" className="sr-only">
           <LocaleText k="navLabel" />
         </span>
-        {hope ? <span className="hidden min-[721px]:block" /> : (
-          <nav aria-labelledby="site-nav-label" className="hidden items-center justify-center gap-1 min-[721px]:flex">
-            <NavLinks pathname={pathname} />
-          </nav>
-        )}
-        <div className="flex items-center justify-end gap-1">
-          {hope ? (
+        {hope ? (
+          <div className="hm-hr">
             <nav aria-labelledby="site-nav-label">
-              <Link href="/" className={linkClass}>
+              <Link href="/" className="hm-close">
                 <LocaleText k="close" />
               </Link>
             </nav>
-          ) : (
-            <>
+          </div>
+        ) : (
+          <>
+            <nav id={menuId} ref={panelRef} className="hm-nav" aria-labelledby="site-nav-label">
+              {links.map((link) => (
+                <Link key={link.href} href={link.href} aria-current={current(pathname, link.href) ? "page" : undefined}>
+                  <LocaleText k={link.key} />
+                </Link>
+              ))}
+            </nav>
+            <div className="hm-hr">
               <LanguageSwitcher />
+              <Link href="/write" className="hm-btn hm-dark hm-sm hm-write">
+                <LocaleText k="writeMessage" />
+                <PenIcon />
+              </Link>
               <button
                 type="button"
                 ref={buttonRef}
-                className="inline-flex size-11 items-center justify-center rounded-full text-ink min-[721px]:hidden"
+                className="hm-burger"
                 aria-expanded={open}
                 aria-controls={menuId}
                 onClick={onToggle}
               >
                 <span className="sr-only">{open ? <LocaleText k="closeMenu" /> : <LocaleText k="menu" />}</span>
-                <MenuIcon open={open} />
+                <MenuIcon />
               </button>
-              <div className="ms-1 hidden min-[721px]:block">
-                <Button href="/write" className="gap-2">
-                  <LocaleText k="writeMessage" />
-                  <PenIcon />
-                </Button>
-              </div>
-            </>
-          )}
-        </div>
-      </Container>
-      {hope ? null : (
-        <nav
-          id={menuId}
-          ref={panelRef}
-          hidden={!open}
-          aria-labelledby="site-nav-label"
-          className="border-t border-line min-[721px]:hidden"
-        >
-          <Container className="flex flex-col items-stretch py-3">
-            <NavLinks pathname={pathname} stacked />
-          </Container>
-        </nav>
-      )}
+            </div>
+          </>
+        )}
+      </div>
     </header>
   );
 }
